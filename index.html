@@ -26,9 +26,9 @@ button{cursor:pointer;color:inherit}
 .page{width:min(850px,100%);margin:auto;padding:22px 16px 48px}
 .panel{
  position:relative;isolation:isolate;overflow:hidden;
- background:linear-gradient(145deg,rgba(29,26,34,.97),rgba(19,17,24,.98));
- border:1px solid #393540;border-radius:27px;padding:24px;
- box-shadow:0 20px 70px #0009,0 0 30px #00dede0c;
+ background:linear-gradient(145deg,rgba(29,27,36,.985),rgba(15,15,22,.99));
+ border:1px solid #45404b;border-radius:27px;padding:24px;
+ box-shadow:0 22px 75px #000b,0 0 34px #00dede16,inset 0 1px 0 #ffffff0a;
 }
 .panel:before{
  content:"";position:absolute;z-index:-1;inset:-2px;border-radius:inherit;
@@ -62,7 +62,7 @@ button{cursor:pointer;color:inherit}
 .brand-text,.rainbow{
  background:linear-gradient(90deg,#ff9e20,#ff593c,#ffbd32,#28e5d9,#3c9fff,#c15cff,#ff4e75,#ff9e20);
  background-size:250% auto;color:transparent;background-clip:text;-webkit-background-clip:text;
- animation:gradientMove 5s linear infinite,hue 12s linear infinite;
+ animation:gradientMove 7s ease-in-out infinite;
 }
 .brand-text{font-size:clamp(23px,5vw,32px);font-weight:950;letter-spacing:.2px}
 .orb{
@@ -106,8 +106,7 @@ input{
 input:focus{border-color:#21e9e4;box-shadow:0 0 0 3px #00dada20,0 0 18px #00dada22}
 .btn-activate{
  border:0;padding:14px 22px;color:#17121a;font-size:17px;
- background:linear-gradient(105deg,#ff9a00,#ff3867,#28d8e0);
- background-size:220% 100%;animation:gradientMove 4s linear infinite;
+ background:linear-gradient(105deg,#ff9a00 0%,#ff5a4e 48%,#28d8e0 100%);
  box-shadow:0 7px 24px #ff5b2833;
 }
 .divider-label{display:flex;align-items:center;gap:12px;color:#797481;font-size:13px;justify-content:center;margin:28px 0 12px}
