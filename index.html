@@ -1,244 +1,176 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111016">
 <title>Hệ thống tìm rương Xu - VHN</title>
 <style>
+:root{--bg:#100f14;--panel:#19171e;--line:#302d37;--cyan:#22e4e4;--orange:#ff941e;--pink:#ff3e68;--muted:#85818d}
 *{box-sizing:border-box}
-body{
- margin:0;background:#0d0c11;color:white;
- font-family:Arial,sans-serif;padding:18px;
-}
-.container{max-width:850px;margin:auto}
-.panel{
- background:#19171e;border:1px solid #34313d;
- border-radius:22px;padding:22px;margin:20px 0;
- box-shadow:0 0 25px #00d9e522;
-}
-h1{
- color:#ff9b25;text-align:center;
- text-shadow:0 0 12px #ff7600;
- font-size:25px;
-}
-h2{text-align:center}
-input{
- background:#101015;color:white;border:1px solid #00d8d8;
- border-radius:12px;padding:16px;width:100%;
- font-size:16px;margin:10px 0;
-}
-button{
- cursor:pointer;border:1px solid #37333e;
- background:#201e26;color:white;
- padding:13px 17px;border-radius:13px;
- font-size:15px;font-weight:bold;
-}
-button:active{transform:scale(.97)}
-.primary{
- background:linear-gradient(100deg,#ff443f,#ff9a00);
- border:0;color:white;
-}
-.neon{border-color:#00dada;color:#00e5e5}
-.blue{border-color:#1684ff;color:#65aaff}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#17242a 0,#100f14 48%,#0b0a0e 100%);color:#f5f4f7;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;color:inherit}
+.wrap{width:min(850px,100%);margin:auto;padding:18px 16px 50px}
+.brand{text-align:center;margin:8px auto 22px}
+.brand-name{display:inline-block;padding:13px 28px;border-radius:50px;background:#11151a;border:1px solid #38313b;box-shadow:0 0 28px #ff8d1833;font-weight:900;font-size:clamp(23px,5vw,34px);letter-spacing:.3px;background-image:linear-gradient(90deg,#ffb12b,#ff6842,#ffb12b);background-clip:text;color:transparent}
+.shell{background:linear-gradient(145deg,#1b1921,#151319);border:1px solid #393540;border-radius:25px;padding:22px;box-shadow:0 18px 60px #0008}
+.hero-title{margin:0 0 9px;text-align:center;font-size:clamp(24px,5vw,35px);font-weight:900;line-height:1.2;background:linear-gradient(90deg,#ff9d24,#ffce54,#ff6b32);background-clip:text;color:transparent;text-shadow:0 0 25px #ff8b1833}
+.sub{text-align:center;color:#aaa6b1;line-height:1.6;margin:0 0 24px}
+.btn{border:1px solid #3c3944;background:#211f27;border-radius:15px;padding:14px 17px;font-weight:800;transition:.18s}
+.btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn-blue{border:1px solid #147cff;background:#15223e;box-shadow:0 0 18px #147cff22}
+.btn-cyan{border:1px solid #087e91;background:#142a34;box-shadow:0 0 18px #00d9e322}
+.btn-hot{border:0;background:linear-gradient(105deg,#ff3d68,#ff9b00);box-shadow:0 7px 24px #ff5b2833}
+.btn-wide{width:100%;font-size:17px}
+.social{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.social .btn{font-size:18px;min-height:65px}
+.field-label{display:block;font-weight:800;margin:24px 0 8px}
+.input-row{display:flex;gap:10px}
+input{width:100%;min-width:0;background:#101015;border:1px solid #087e82;border-radius:14px;padding:16px;color:white;outline:none}
+input:focus{box-shadow:0 0 0 3px #00dada22;border-color:var(--cyan)}
+.copyrow{display:flex;align-items:center;gap:10px;background:#111016;border:1px solid #38343e;border-radius:15px;padding:10px;margin-top:10px}
+.device{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aaa;flex:1;font-family:ui-monospace,monospace}
+.muted{text-align:center;color:#77717f;font-size:13px;margin:24px 0 8px}
+.notice{position:fixed;inset:0;z-index:10;background:#050509d9;display:grid;place-items:center;padding:18px}
+.notice-card{width:min(540px,100%);background:linear-gradient(145deg,#211d27,#15131a);border:1px solid #51424a;border-radius:22px;padding:24px;box-shadow:0 0 45px #ff941e22}
+.notice-card h2{margin:8px 0 12px;color:#ffb13d;text-align:center}
+.notice-card p{color:#c3bdc8;line-height:1.65;text-align:center}
+.notice-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 18px}
+.topbar .hero-title{text-align:left;margin:0}
+.refresh{border:0;background:transparent;font-size:29px;color:#bdb9c3}
+.status{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#111016;border:1px solid #38343d;border-radius:14px;padding:12px 14px;margin:18px 0}
+.status-code{font-family:ui-monospace,monospace;letter-spacing:1px;color:#d8d5dc}
+.remaining{color:#ff9b30;font-weight:900;white-space:nowrap}
+.dash-social{margin:20px 0}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0;padding-bottom:20px;border-bottom:1px solid #38343d}
+.tab{padding:13px 8px;color:#a7a2ad}
+.tab.active{color:#fff;border-color:#ff921c;background:linear-gradient(110deg,#49301d,#1b2226);box-shadow:0 0 18px #ff941e35}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:13px;background:linear-gradient(110deg,#1a181f,#17151b);border:1px solid #35313b;border-left:7px solid var(--cyan);border-radius:19px;padding:16px;margin:15px 0;box-shadow:0 8px 20px #0002}
+.item-time{font-weight:800;font-size:17px}
+.item-date{color:#77727e;margin-top:4px}
+.item-link{display:inline-block;color:var(--cyan);font-size:19px;font-weight:900;text-decoration:none;margin-top:5px}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;font-size:13px}
+.tag{padding:3px 8px;border-radius:7px;background:#32251c;border:1px solid #70401b;color:#ff9c39}
+.tag.ratio{background:#301c27;border-color:#67243c;color:#ff5277}
+.tag.live{background:#271d37;border-color:#503174;color:#b77aff}
+.clock{min-width:112px;text-align:center;border:2px solid #087e82;border-radius:15px;padding:8px 10px;color:#16e4df;background:#102326}
+.clock strong{display:block;font:900 24px ui-monospace,monospace}
+.clock small{display:block;color:#9ca8ad;font-weight:800;letter-spacing:.5px}
+.clock.expired{border-color:#e32d58;color:#ff416d;background:#2a111b;box-shadow:0 0 20px #ff285544}
+.clock.expired small{color:#ff5277}
+.open{padding:14px 16px;white-space:nowrap;font-size:16px}
+.footer{text-align:center;color:#706b77;font-size:12px;margin:22px 0}
 .hidden{display:none!important}
-.groups,.tabs{
- display:grid;grid-template-columns:repeat(2,1fr);
- gap:12px;margin:20px 0;
-}
-.tabs{grid-template-columns:repeat(4,1fr)}
-.tabs button.active{
- background:linear-gradient(100deg,#ff8b00,#303038);
- border-color:#ff9200;color:white;
-}
-.card{
- background:#17151c;border:1px solid #35313b;
- border-left:7px solid #12e8e5;
- border-radius:18px;padding:17px;
- margin:15px 0;
- display:flex;justify-content:space-between;
- align-items:center;gap:10px;flex-wrap:wrap;
-}
-.link{color:#14e5e5;font-size:18px;font-weight:bold}
-.meta{font-size:13px;color:#ff9a35;margin-top:9px}
-.ratio{color:#ff426b;margin-left:8px}
-.timer{
- color:#00e5df;border:2px solid #087b7b;
- border-radius:13px;padding:10px;text-align:center;
- min-width:105px;font-size:22px;font-weight:bold;
-}
-.expired{color:#ff426b;border-color:#ff426b}
-.open{background:linear-gradient(90deg,#ff3263,#ff9b00)}
-small{color:#999}
-#device{overflow-wrap:anywhere;color:#aaa}
-@media(max-width:500px){
- body{padding:8px}
- .panel{padding:13px}
- .tabs{grid-template-columns:repeat(2,1fr)}
- .card{padding:12px}
- h1{font-size:21px}
+@media(max-width:600px){
+ .wrap{padding:10px 9px 30px}.shell{padding:15px;border-radius:20px}
+ .social .btn{font-size:15px;min-height:58px;padding:10px 7px}
+ .tabs{gap:7px}.tab{font-size:13px;padding:12px 5px}
+ .item{grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px}
+ .item-main{min-width:0}.clock{min-width:95px}.clock strong{font-size:20px}
+ .open{grid-column:1/-1;width:100%;padding:12px}
+ .status{font-size:12px}.status-code{letter-spacing:0}
 }
 </style>
 </head>
 <body>
-<div class="container">
-
-<!-- TRANG KICH HOAT -->
-<section id="activation" class="panel">
-<h1>👑 Võ Hoài Nam ✨</h1>
-<h2>🔐 KÍCH HOẠT THIẾT BỊ</h2>
-<p style="text-align:center;color:#aaa">
-Thiết bị của bạn chưa được cấp quyền truy cập.
-</p>
-
-<div class="groups">
-<button class="blue" onclick="alert('Nhóm Zalo - Demo')">🔵 Nhóm Zalo</button>
-<button class="neon" onclick="alert('Nhóm Telegram - Demo')">✈ Nhóm Telegram</button>
-</div>
-
-<h3>🔑 Nhập Mã Key Kích Hoạt:</h3>
-<input id="key" placeholder="VD: VIP-8A2B-X7K1-9M4P">
-<button class="primary" style="width:100%" onclick="activate()">
-⚡ KÍCH HOẠT
-</button>
-
-<hr style="border-color:#333;margin:25px 0">
-<p style="text-align:center;color:#888">MÃ THIẾT BỊ CỦA BẠN</p>
-<p id="device">device_demo_2026</p>
-<button onclick="copyDevice()">Sao chép ID</button>
-</section>
-
-<!-- TRANG CHINH -->
-<section id="dashboard" class="hidden">
-<div class="panel">
-<h1>🟢 Hệ thống tìm rương Xu - VHN</h1>
-
-<div class="card">
-<span>🟠 DEMO - 25/11/2026</span>
-<span style="color:#ff9a25">⌛ <span id="systemTimer">59:59</span></span>
-</div>
-
-<button class="neon" style="width:100%"
-onclick="render()">⟳ LÀM MỚI</button>
-
-<div class="groups">
-<button class="blue" onclick="alert('Nhóm Zalo - Demo')">🔵 Nhóm Zalo</button>
-<button class="neon" onclick="alert('Nhóm Telegram - Demo')">✈ Nhóm Telegram</button>
-</div>
-
-<div class="tabs">
-<button class="active" onclick="changeTab(0,this)">Rương xu</button>
-<button onclick="changeTab(1,this)">Rương treo</button>
-<button onclick="changeTab(2,this)">Túi xu</button>
-<button onclick="changeTab(3,this)">Kênh Test</button>
-</div>
-</div>
-
-<div id="items"></div>
-<p style="text-align:center;color:#777">
-HỆ THỐNG DEMO - DỮ LIỆU MINH HỌA
-</p>
-</section>
-</div>
-
-<script>
-let tab=0;
-let systemSeconds=3599;
-
-const samples=[
-[
-["5487381","33/8","4.1",49],
-["5487314","100/25","4.0",49],
-["5487312","31/5","6.2",61],
-["5487309","20/5","4.0",46],
-["5487306","35/5","7.0",60]
-],
-[
-["5487386","50/5","10.0",0],
-["5487348","21/8","2.6",0],
-["5487343","49/15","3.3",0],
-["5487340","20/2","10.0",0],
-["5487328","50/20","2.5",0]
-],
-[
-["5487390","20/5","4.0",60],
-["5487388","35/7","5.0",45],
-["5487370","50/10","5.0",30]
-],
-[
-["5487395","100/25","4.0",75],
-["5487392","31/5","6.2",60],
-["5487389","20/5","4.0",45]
-]
-];
-
-let data=JSON.parse(JSON.stringify(samples));
-
-function activate(){
- document.getElementById("activation").classList.add("hidden");
- document.getElementById("dashboard").classList.remove("hidden");
- render();
-}
-
-function copyDevice(){
- navigator.clipboard.writeText("device_demo_2026");
- alert("Đã sao chép ID demo!");
-}
-
-function changeTab(n,btn){
- tab=n;
- document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
- btn.classList.add("active");
- render();
-}
-
-function render(){
- const box=document.getElementById("items");
- box.innerHTML="";
- data[tab].forEach((item,i)=>{
- let [id,b,r,t]=item;
- let expired=t<=0;
- let card=document.createElement("div");
- card.className="card";
- card.innerHTML=`
- <div>
-  <div style="color:#aaa">15:03:${58-i}</div>
-  <div class="link">link${id}</div>
-  <div class="meta">
-   Box: ${b}<span class="ratio">Ratio: ${r}</span>
+<div class="notice" id="notice">
+ <div class="notice-card">
+  <div style="text-align:center;font-size:30px">📢</div>
+  <h2>Thông Báo Hệ Thống</h2>
+  <p>Đây là giao diện minh họa VHN. Các dữ liệu rương và thời gian bên trong là dữ liệu mẫu, không phải kết quả quét trực tiếp.</p>
+  <div class="notice-actions">
+   <button class="btn" onclick="document.getElementById('notice').classList.add('hidden')">×</button>
+   <button class="btn btn-hot" onclick="document.getElementById('notice').classList.add('hidden')">Đã hiểu / Tiếp tục</button>
   </div>
  </div>
- <div class="timer ${expired?'expired':''}">
-  <span class="count">${format(t)}</span>
-  <div style="font-size:12px">${expired?'NỔ NGAY':'CÒN LẠI'}</div>
- </div>
- <button class="open" onclick="openDemo('${id}')">Mở Link</button>
- `;
- box.appendChild(card);
- });
-}
+</div>
+<main class="wrap">
+ <section id="activation" class="shell">
+  <div class="brand"><div class="brand-name">👑 Võ Hoài Nam ✨</div></div>
+  <h1 class="hero-title">Hệ thống tìm rương Xu - VHN</h1>
+  <p class="sub">Hơn 100.000 live mỗi ngày<br>được BOT quét liên tục 24/24</p>
+  <div class="social">
+   <button class="btn btn-blue" onclick="demoNotice('Nhóm Zalo')">🔵 Nhóm Zalo</button>
+   <button class="btn btn-cyan" onclick="demoNotice('Nhóm Telegram')">✈️ Nhóm Telegram</button>
+  </div>
+  <label class="field-label" for="key">🔑 Nhập Mã Key Kích Hoạt Thiết Bị:</label>
+  <div class="input-row">
+   <input id="key" placeholder="VD: VIP-8A2B-X7K1-9M4P" autocomplete="off">
+   <button class="btn btn-hot" onclick="activate()">⚡ Kích Hoạt</button>
+  </div>
+  <div class="muted">MÃ THIẾT BỊ CỦA BẠN (DEMO)</div>
+  <div class="copyrow"><span class="device" id="device">device_demo_0d9a4828-b490-4728-83e2</span><button class="btn" onclick="copyDevice()">Sao chép</button></div>
+  <p class="muted" style="margin-bottom:0">Bản giao diện demo — không xác thực key với máy chủ.</p>
+ </section>
 
-function format(t){
- return String(Math.floor(t/60)).padStart(2,'0')+":"+
- String(t%60).padStart(2,'0');
-}
-
-function openDemo(id){
- alert("Link mẫu: "+id+"\nChưa kết nối link TikTok thật.");
-}
-
-setInterval(()=>{
- systemSeconds=Math.max(0,systemSeconds-1);
- document.getElementById("systemTimer").textContent=format(systemSeconds);
-
- data.forEach(group=>{
- group.forEach(item=>{
- if(item[3]>0)item[3]--;
- });
- });
- if(!document.getElementById("dashboard").classList.contains("hidden")){
+ <section id="dashboard" class="shell hidden">
+  <div class="topbar">
+   <h1 class="hero-title">🟢 Hệ thống tìm rương Xu - VHN</h1>
+   <button class="refresh" title="Làm mới danh sách" onclick="render()">⟳</button>
+  </div>
+  <div class="status">
+   <span class="status-code">🟠 ···cb58–25/11/26–···449E</span>
+   <span class="remaining">⌛ Còn: <span id="systemTimer">00:59:59</span></span>
+  </div>
+  <div class="social dash-social">
+   <button class="btn btn-blue" onclick="demoNotice('Nhóm Zalo')">🔵 Nhóm Zalo</button>
+   <button class="btn btn-cyan" onclick="demoNotice('Nhóm Telegram')">✈️ Nhóm Telegram</button>
+  </div>
+  <div class="tabs" id="tabs">
+   <button class="btn tab active" onclick="changeTab(0,this)">Rương xu</button>
+   <button class="btn tab" onclick="changeTab(1,this)">Rương treo</button>
+   <button class="btn tab" onclick="changeTab(2,this)">Túi xu</button>
+   <button class="btn tab" onclick="changeTab(3,this)">Kênh Test</button>
+  </div>
+  <div id="items"></div>
+  <div class="footer">VHN • GIAO DIỆN DEMO • DỮ LIỆU MINH HỌA</div>
+ </section>
+</main>
+<script>
+const initial=[
+ [['5487381','33/8','4.1',49],['5487314','100/25','4.0',49],['5487312','31/5','6.2',61],['5487309','20/5','4.0',46],['5487306','35/5','7.0',60],['5487302','50/10','5.0',0]],
+ [['5487386','50/5','10.0',0],['5487348','21/8','2.6',0],['5487343','49/15','3.3',0],['5487340','20/2','10.0',0],['5487328','50/20','2.5',0],['5487323','20/7','2.9',0]],
+ [['5487390','20/5','4.0',60],['5487388','35/7','5.0',45],['5487370','50/10','5.0',30]],
+ [['5487395','100/25','4.0',75],['5487392','31/5','6.2',60],['5487389','20/5','4.0',45]]
+];
+let data=initial.map(group=>group.map(x=>[...x]));
+let activeTab=0, systemSeconds=3599;
+function activate(){
+ document.getElementById('activation').classList.add('hidden');
+ document.getElementById('dashboard').classList.remove('hidden');
  render();
- }
+}
+function changeTab(n,el){
+ activeTab=n;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ el.classList.add('active');render();
+}
+function timeFmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function render(){
+ const root=document.getElementById('items');root.innerHTML='';
+ data[activeTab].forEach((v,i)=>{
+  const [id,box,ratio,secs]=v, expired=secs<=0;
+  const card=document.createElement('article');card.className='item';
+  const main=document.createElement('div');main.className='item-main';
+  main.innerHTML=`<div class="item-time">15:03:${String(58-i).padStart(2,'0')}</div><div class="item-date">25/11/26</div><a class="item-link" href="#" onclick="event.preventDefault();demoNotice('Link mẫu ${id}')">link${id}</a><div class="meta"><span class="tag">Box: ${box}</span><span class="tag ratio">Ratio: ${ratio}</span></div>`;
+  const clock=document.createElement('div');clock.className='clock'+(expired?' expired':'');
+  clock.innerHTML=`<strong>${expired?'00:00':timeFmt(secs)}</strong><small>${expired?'NỔ NGAY':'CÒN LẠI'}</small>`;
+  const open=document.createElement('button');open.className='btn btn-hot open';open.textContent='Mở Link';open.onclick=()=>demoNotice('Link mẫu link'+id+' — chưa kết nối nguồn live');
+  card.append(main,clock,open);root.append(card);
+ });
+}
+function demoNotice(name){alert(name+'\\nChức năng liên kết chưa được cấu hình trong bản demo.');}
+function copyDevice(){
+ const value=document.getElementById('device').textContent;
+ if(navigator.clipboard)navigator.clipboard.writeText(value).then(()=>alert('Đã sao chép ID thiết bị!')).catch(()=>alert(value));
+ else alert(value);
+}
+setInterval(()=>{
+ if(systemSeconds>0)systemSeconds--;
+ const s=document.getElementById('systemTimer');
+ if(s)s.textContent='00:'+timeFmt(systemSeconds);
+ data.forEach(g=>g.forEach(v=>{if(v[3]>0)v[3]--;}));
+ if(!document.getElementById('dashboard').classList.contains('hidden'))render();
 },1000);
 </script>
 </body>
