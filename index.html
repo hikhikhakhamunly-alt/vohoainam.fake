@@ -1,113 +1,409 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080d1c">
-<title>Hệ thống tìm rương Xu - VHN</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07101e">
+<title>Võ Hoài Nam - Hệ thống LIVE TikTok</title>
 <style>
-:root{--bg:#080d1c;--panel:rgba(17,27,51,.78);--line:rgba(143,171,255,.17);--muted:#9ba9c8;--white:#f5f7ff;--cyan:#56e5ff;--blue:#658bff;--violet:#a879ff}
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+ --blue:#27c9ff;
+ --cyan:#00e5ff;
+ --bg:#060b16;
+ --panel:#101b2c;
+ --text:#f3f8ff;
+ --muted:#a5bbd1;
+}
 *{box-sizing:border-box}
-html{min-height:100%;scroll-behavior:smooth}
-body{margin:0;min-height:100vh;color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 50% -15%,rgba(72,112,255,.24),transparent 48%),radial-gradient(ellipse at 5% 75%,rgba(33,196,225,.10),transparent 35%),radial-gradient(ellipse at 95% 85%,rgba(150,91,255,.11),transparent 34%),var(--bg);display:grid;place-items:center;padding:28px 16px;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(rgba(157,181,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(157,181,255,.045) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
-.glow{position:fixed;width:360px;height:360px;border-radius:50%;filter:blur(100px);opacity:.15;pointer-events:none}
-.glow.a{background:#2ddfff;left:-190px;top:22%}.glow.b{background:#815cff;right:-200px;bottom:4%}
-.wrap{width:min(100%,560px);position:relative;z-index:1}
-.notice{display:flex;align-items:center;gap:10px;padding:11px 15px;border:1px solid rgba(255,205,105,.2);background:rgba(255,190,75,.07);border-radius:14px;color:#ffe0a4;font-size:13px;margin-bottom:17px}
-.notice .dot{width:7px;height:7px;background:#ffc766;border-radius:50%;box-shadow:0 0 12px #ffc766;flex:none}
-.card{position:relative;border:1px solid var(--line);border-radius:28px;padding:34px 30px 26px;background:linear-gradient(145deg,rgba(21,34,65,.91),rgba(10,17,35,.94));box-shadow:0 28px 90px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.06);backdrop-filter:blur(18px);overflow:hidden}
-.card:before{content:"";position:absolute;left:12%;right:12%;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);opacity:.9}
-.brand{text-align:center;margin-bottom:25px}
-.crown{font-size:30px;filter:drop-shadow(0 0 15px rgba(255,208,102,.28))}
-.brandname{font-size:15px;font-weight:750;letter-spacing:.12em;color:#dce7ff;margin-top:8px}
-h1{font-size:clamp(27px,6vw,36px);line-height:1.15;letter-spacing:-.04em;text-align:center;margin:13px 0 11px;background:linear-gradient(100deg,#fff 15%,#a9eaff 55%,#c7b2ff 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{text-align:center;color:var(--muted);font-size:14px;line-height:1.65;margin:0}
-.sub strong{color:#d8eaff;font-weight:700}
-.stats{display:flex;justify-content:center;gap:9px;margin:22px 0 25px;flex-wrap:wrap}
-.pill{font-size:11px;letter-spacing:.04em;color:#c6d5f7;border:1px solid rgba(126,165,255,.19);background:rgba(98,137,255,.08);padding:8px 12px;border-radius:99px}
-.pill b{color:var(--cyan);font-weight:700}
-.links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:25px}
-.link{display:flex;align-items:center;justify-content:center;gap:9px;min-height:45px;border-radius:13px;border:1px solid rgba(125,164,255,.2);background:rgba(112,146,255,.08);color:#e5edff;text-decoration:none;font-size:13px;font-weight:650;transition:.2s ease}
-.link:hover{transform:translateY(-2px);border-color:rgba(86,229,255,.55);background:rgba(86,229,255,.1)}
-.section-label{display:flex;align-items:center;gap:9px;color:#dce7ff;font-size:13px;font-weight:750;margin-bottom:11px}
-.section-label:before{content:"";width:3px;height:15px;border-radius:5px;background:linear-gradient(var(--cyan),var(--violet));box-shadow:0 0 10px rgba(86,229,255,.4)}
-.field{position:relative}
-input{width:100%;height:54px;padding:0 15px;border-radius:14px;border:1px solid rgba(145,170,255,.2);outline:none;background:rgba(3,9,23,.58);color:#fff;font:600 14px inherit;letter-spacing:.04em;transition:.2s}
-input::placeholder{color:#657493;font-weight:500;letter-spacing:0}
-input:focus{border-color:rgba(86,229,255,.7);box-shadow:0 0 0 3px rgba(86,229,255,.09),0 0 25px rgba(86,229,255,.08)}
-.activate{width:100%;height:52px;margin-top:12px;border:0;border-radius:14px;color:#06111e;font-size:14px;font-weight:850;letter-spacing:.03em;cursor:pointer;background:linear-gradient(100deg,#64eaff,#7fa6ff 55%,#b69aff);box-shadow:0 8px 25px rgba(82,171,255,.2);transition:transform .2s,filter .2s}
-.activate:hover{transform:translateY(-2px);filter:brightness(1.08)}.activate:active{transform:translateY(0)}
-.device{margin-top:23px;padding:16px;border:1px solid rgba(133,163,255,.16);border-radius:16px;background:rgba(5,12,28,.48)}
-.devicehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
-.devicehead span{font-size:12px;color:#aebcda;font-weight:700}
-.copy{border:1px solid rgba(86,229,255,.25);border-radius:9px;background:rgba(86,229,255,.08);color:#a9efff;font-size:11px;font-weight:750;padding:7px 10px;cursor:pointer}
-.deviceid{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#d8e5ff;font-size:13px;letter-spacing:.06em;overflow-wrap:anywhere}
-.direct{display:flex;justify-content:center;margin-top:19px}
-.direct a{color:#8beaff;text-decoration:none;font-size:13px;font-weight:700;border-bottom:1px dashed rgba(139,234,255,.45);padding-bottom:4px}
-.direct a:hover{color:#fff}
-.feedback{min-height:20px;margin:13px 0 0;text-align:center;color:#a9dff0;font-size:12px}
-.footer{text-align:center;color:#647391;font-size:11px;margin-top:18px;letter-spacing:.04em}
-@media(max-width:480px){.card{padding:28px 19px 22px;border-radius:23px}.notice{font-size:12px}.stats{margin:18px 0 21px}.links{margin-bottom:22px}}
+body{
+ margin:0;min-height:100vh;
+ padding:22px 14px 35px;
+ font-family:'Be Vietnam Pro',sans-serif;
+ color:var(--text);
+ background:
+ radial-gradient(ellipse at 50% -10%,#174d77 0%,transparent 48%),
+ radial-gradient(ellipse at 100% 90%,#07334a 0%,transparent 40%),
+ var(--bg);
+}
+.container{width:100%;max-width:540px;margin:auto}
+.notice{
+ position:relative;
+ background:linear-gradient(145deg,#172b43,#101a2b);
+ border:1px solid #39749a;
+ border-radius:17px;
+ padding:19px;
+ margin-bottom:27px;
+ box-shadow:0 0 30px #00bfff17;
+}
+.notice h3{font-size:16px;color:#61dfff;margin:0 0 12px}
+.notice p{
+ color:#d1e0ed;font-size:12.5px;
+ line-height:1.85;margin:0;
+}
+.notice strong{color:#61e5ff}
+.notice button{
+ width:100%;margin-top:15px;padding:12px;
+ border:0;border-radius:10px;
+ background:linear-gradient(90deg,#087fc5,#16c8e8);
+ color:white;font-weight:800;cursor:pointer;
+}
+.brand{text-align:center;margin:27px 0 18px}
+.brand-name{
+ font-size:25px;font-weight:900;
+ color:white;text-shadow:0 0 20px #00bfff85;
+}
+.brand-name span{color:#49d9ff}
+.brand-sub{font-size:10px;letter-spacing:4px;color:#75c9ed;margin-top:7px}
+h1{
+ text-align:center;
+ font-size:clamp(26px,7vw,35px);
+ line-height:1.3;margin:23px 0 10px;
+ font-weight:900;
+ background:linear-gradient(90deg,#fff,#57dfff,#fff);
+ -webkit-background-clip:text;background-clip:text;
+ color:transparent;
+}
+.subtitle{
+ text-align:center;color:#a9bfd3;
+ font-size:13px;line-height:1.9;
+}
+.status{
+ display:flex;justify-content:center;gap:9px;
+ flex-wrap:wrap;margin:21px 0 24px;
+}
+.status-item{
+ border:1px solid #245575;
+ background:#10253a;
+ color:#bfeaff;
+ padding:9px 12px;border-radius:30px;
+ font-size:11px;font-weight:700;
+}
+.status-dot{
+ display:inline-block;width:7px;height:7px;
+ border-radius:50%;background:#31e89b;
+ box-shadow:0 0 9px #31e89b;margin-right:6px;
+}
+.social-title{
+ text-align:center;color:#8caec8;
+ font-size:11px;font-weight:800;
+ letter-spacing:2px;margin-bottom:12px;
+}
+.social{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:10px;margin-bottom:24px;
+}
+.social a{
+ display:flex;align-items:center;justify-content:center;
+ gap:7px;text-align:center;text-decoration:none;
+ padding:14px 8px;border-radius:12px;
+ color:white;font-size:12px;font-weight:800;
+ background:linear-gradient(135deg,#087fc5,#13bddd);
+ box-shadow:0 5px 20px #00bfff20;
+ transition:.2s;
+}
+.social a:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.social a.telegram{
+ grid-column:1/-1;
+ background:linear-gradient(135deg,#1269a9,#249ee2);
+}
+.panel{
+ background:linear-gradient(145deg,#111f33,#0b1424);
+ border:1px solid #28516d;
+ border-radius:21px;padding:23px;
+ box-shadow:0 15px 55px #0008,0 0 30px #00bfff0b;
+}
+.panel-title{
+ text-align:center;font-size:17px;
+ font-weight:900;margin:0 0 8px;
+}
+.panel-sub{
+ text-align:center;font-size:11px;
+ color:#8caac1;margin-bottom:23px;
+}
+label{
+ display:block;font-size:12px;
+ color:#b8d5e9;margin-bottom:9px;font-weight:700;
+}
+input{
+ width:100%;padding:16px 14px;
+ background:#07111e;border:1px solid #2a506d;
+ border-radius:12px;color:white;
+ font-size:14px;outline:none;
+ font-family:inherit;transition:.2s;
+}
+input:focus{
+ border-color:#27d4ff;
+ box-shadow:0 0 0 3px #1bbfff20;
+}
+input::placeholder{color:#607991}
+.activate{
+ width:100%;margin-top:14px;padding:16px;
+ border:0;border-radius:12px;
+ background:linear-gradient(100deg,#0786cb,#16d5e9);
+ color:#001523;font-size:14px;
+ font-weight:900;cursor:pointer;
+ box-shadow:0 7px 25px #00bfff32;
+}
+.activate:disabled{opacity:.55;cursor:wait}
+.message{
+ display:none;margin-top:14px;padding:13px;
+ border-radius:11px;font-size:12px;line-height:1.7;
+ overflow-wrap:anywhere;
+}
+.message.error{display:block;background:#421e2b;color:#ffc2cb;border:1px solid #8e3548}
+.message.success{display:block;background:#103b31;color:#a6ffcf;border:1px solid #287b5e}
+.device{
+ margin-top:20px;padding:15px;
+ background:#081321;border:1px solid #24435d;
+ border-radius:13px;
+}
+.device-title{font-size:11px;color:#9bbbd2;margin-bottom:10px}
+.device-row{display:flex;align-items:center;gap:8px}
+.device-code{
+ flex:1;min-width:0;overflow:hidden;
+ text-overflow:ellipsis;white-space:nowrap;
+ color:#50d9ff;font-size:12px;font-weight:800;
+}
+.copy{
+ border:1px solid #28617c;background:#102d43;
+ color:#bcefff;padding:9px 12px;
+ border-radius:8px;font-weight:800;cursor:pointer;
+}
+.continue{
+ display:block;text-align:center;text-decoration:none;
+ margin-top:16px;padding:15px;
+ border-radius:12px;background:linear-gradient(100deg,#087fc5,#12b9d8);
+ color:white;font-size:12px;font-weight:900;
+}
+.continue.disabled{
+ background:#17283a;color:#7894a9;
+ border:1px solid #2a455b;
+ pointer-events:none;opacity:.65;
+}
+.info{
+ margin-top:18px;padding:15px;
+ background:#0b1726;border:1px solid #203d56;
+ border-radius:13px;
+}
+.info h3{font-size:12px;color:#61dfff;margin:0 0 9px}
+.info p{font-size:11px;color:#a5bbd1;line-height:1.8;margin:0}
+.footer{
+ text-align:center;color:#647f96;
+ font-size:10px;line-height:2;margin:24px 0 5px;
+}
 </style>
 </head>
+
 <body>
-<div class="glow a"></div><div class="glow b"></div>
-<main class="wrap">
-  <div class="notice"><span class="dot"></span><span><b>Thông Báo Hệ Thống</b> · Vui lòng đọc thông báo trước khi kích hoạt.</span></div>
-  <section class="card">
-    <header class="brand">
-      <div class="crown">👑</div>
-      <div class="brandname">VÕ HOÀI NAM ✨</div>
-    </header>
-    <h1>Hệ thống tìm rương Xu - VHN</h1>
-    <p class="sub">Hơn <strong>100.000 live mỗi ngày</strong><br>được BOT quét liên tục <strong>24/24</strong></p>
-    <div class="stats">
-      <span class="pill"><b>●</b> Hệ thống trực tuyến</span>
-      <span class="pill">⚡ Tự động cập nhật</span>
-    </div>
-    <nav class="links" aria-label="Liên kết cộng đồng">
-      <a class="link" href="#" onclick="return false">💬 Nhóm Zalo</a>
-      <a class="link" href="#" onclick="return false">✈️ Nhóm Telegram</a>
-    </nav>
-    <form id="activationForm">
-      <div class="section-label">Nhập Mã Key Kích Hoạt Thiết Bị:</div>
-      <div class="field">
-        <input id="key" type="text" placeholder="VD: VIP-8A2B-X7K1-9M4P" autocomplete="off" spellcheck="false" aria-label="Mã Key kích hoạt">
-      </div>
-      <button class="activate" type="submit">⚡ KÍCH HOẠT</button>
-    </form>
-    <div class="device">
-      <div class="devicehead">
-        <span>Mã Thiết Bị (Device ID)</span>
-        <button class="copy" id="copyBtn" type="button">Sao chép</button>
-      </div>
-      <div class="deviceid" id="deviceId">device_...</div>
-    </div>
-    <div class="direct"><a href="#" onclick="return false">🚀 Vào Xem Link TikTok Trực Tiếp</a></div>
-    <p class="feedback" id="feedback" role="status"></p>
-  </section>
-  <footer class="footer">VHN SYSTEM · SECURE DEVICE ACTIVATION</footer>
-</main>
+<div class="container">
+
+<!-- THÔNG BÁO -->
+<div class="notice" id="notice">
+ <h3>📢 THÔNG BÁO TỪ VOHOAINAM.NET</h3>
+ <p>
+ Vohoainam.net chỉ cung cấp, chia sẻ link LIVE TikTok công khai
+ cho người dùng truy cập nhặt rương thủ công bằng tay.
+ <br><br>
+ Chúng tôi không cung cấp phần mềm, tools để tự nhặt xu vì hành vi đó vi phạm quy định pháp luật.
+ Nếu phát hiện ai sử dụng tools để nhặt xu, chúng tôi sẽ ban tài khoản đó vĩnh viễn.
+ <br><br>
+ Mình không có CTV. Chủ yếu anh em tự mua bán, trao đổi với nhau.
+ <br><br>
+ <strong>🔑 KEY MUA CÓ HẠN SỬ DỤNG: 30 NGÀY</strong>
+ </p>
+ <button onclick="document.getElementById('notice').style.display='none'">
+ ĐÃ ĐỌC / TIẾP TỤC
+ </button>
+</div>
+
+<!-- THƯƠNG HIỆU -->
+<div class="brand">
+ <div class="brand-name">👑 Võ Hoài Nam <span>✨</span></div>
+ <div class="brand-sub">OFFICIAL SYSTEM</div>
+</div>
+
+<h1>Hệ thống tìm rương Xu - VHN</h1>
+<div class="subtitle">
+ Chia sẻ link LIVE TikTok công khai<br>
+ Truy cập và nhặt rương thủ công bằng tay
+</div>
+
+<div class="status">
+ <div class="status-item"><span class="status-dot"></span>HỆ THỐNG TRỰC TUYẾN</div>
+ <div class="status-item">🔐 BẢO MẬT KEY</div>
+</div>
+
+<!-- NHÓM CỘNG ĐỒNG -->
+<div class="social-title">KẾT NỐI CỘNG ĐỒNG</div>
+<div class="social">
+ <a href="https://zalo.me/g/rboxinyyjc8l2blvfngg" target="_blank" rel="noopener">
+ 💬 NHÓM ZALO 1
+ </a>
+ <a href="https://zalo.me/g/pnfkrih5pqtmzrccasan" target="_blank" rel="noopener">
+ 💬 NHÓM ZALO 2
+ </a>
+ <a class="telegram" href="https://t.me/+1j4QUgoI3GRjZGY9" target="_blank" rel="noopener">
+ ✈️ THAM GIA NHÓM TELEGRAM
+ </a>
+</div>
+
+<!-- KÍCH HOẠT -->
+<div class="panel">
+ <div class="panel-title">🔐 KÍCH HOẠT HỆ THỐNG</div>
+ <div class="panel-sub">Nhập KEY để xác minh quyền truy cập thiết bị</div>
+
+ <form id="form">
+  <label for="key">🔑 MÃ KEY KÍCH HOẠT</label>
+  <input
+   id="key"
+   placeholder="Nhập mã KEY của bạn..."
+   autocomplete="off"
+   autocapitalize="characters"
+   required
+  >
+  <button class="activate" id="activate" type="submit">
+   ⚡ XÁC MINH VÀ KÍCH HOẠT
+  </button>
+ </form>
+
+ <div id="message" class="message"></div>
+
+ <div class="device">
+  <div class="device-title">🖥️ DEVICE ID • MÃ ĐỊNH DANH THIẾT BỊ</div>
+  <div class="device-row">
+   <div class="device-code" id="device"></div>
+   <button class="copy" type="button" onclick="copyDevice()">SAO CHÉP</button>
+  </div>
+ </div>
+
+ <a class="continue disabled" id="continue" href="#" aria-disabled="true">
+ 🚀 VÀO XEM LINK LIVE TIKTOK
+ </a>
+</div>
+
+<div class="info">
+ <h3>ℹ️ HƯỚNG DẪN SỬ DỤNG</h3>
+ <p>
+ 1. Tham gia nhóm cộng đồng để cập nhật thông tin.<br>
+ 2. Nhập KEY được cấp vào ô kích hoạt.<br>
+ 3. Chờ hệ thống xác minh KEY và thiết bị.<br>
+ 4. Sau khi kích hoạt thành công, truy cập trang LIVE và nhặt rương thủ công.
+ </p>
+</div>
+
+<div class="footer">
+ © VOHOAINAM.NET • VHN SYSTEM<br>
+ Chỉ chia sẻ link LIVE TikTok công khai
+</div>
+
+</div>
+
 <script>
-const bytes = new Uint8Array(8);
-crypto.getRandomValues(bytes);
-const deviceId = "device_" + Array.from(bytes, b => b.toString(16).padStart(2,"0")).join("");
-document.getElementById("deviceId").textContent = deviceId;
-document.getElementById("copyBtn").addEventListener("click", async () => {
-  const status = document.getElementById("feedback");
-  try {
-    await navigator.clipboard.writeText(deviceId);
-    status.textContent = "Đã sao chép ID thiết bị!";
-  } catch {
-    status.textContent = "Trình duyệt không cho phép sao chép tự động.";
+const API = "https://hq-ba-khi-api.hikhikhakhamunly.workers.dev";
+
+// Chưa có đường dẫn LIVE thật, thay khi có URL
+const LIVE_URL = "#";
+
+let deviceId = localStorage.getItem("hq_device_id");
+
+if(!deviceId){
+ deviceId = "HQD-" + (
+  crypto.randomUUID
+   ? crypto.randomUUID().replace(/-/g,"").toUpperCase()
+   : Math.random().toString(36).slice(2).toUpperCase()
+ );
+ localStorage.setItem("hq_device_id",deviceId);
+}
+
+document.getElementById("device").textContent = deviceId;
+
+function showMessage(text,type){
+ const box = document.getElementById("message");
+ box.textContent = text;
+ box.className = "message " + type;
+}
+
+async function copyDevice(){
+ try{
+  await navigator.clipboard.writeText(deviceId);
+  showMessage("Đã sao chép Device ID thành công!","success");
+ }catch(error){
+  showMessage("Trình duyệt không cho phép sao chép tự động. Hãy sao chép ID hiển thị.","error");
+ }
+}
+
+document.getElementById("form").addEventListener("submit",async function(e){
+ e.preventDefault();
+
+ const key = document.getElementById("key").value.trim();
+ const btn = document.getElementById("activate");
+ const next = document.getElementById("continue");
+
+ if(!key){
+  showMessage("Vui lòng nhập mã KEY!","error");
+  return;
+ }
+
+ btn.disabled = true;
+ btn.textContent = "⏳ ĐANG KẾT NỐI MÁY CHỦ...";
+ next.classList.add("disabled");
+ next.setAttribute("aria-disabled","true");
+ next.href = "#";
+
+ try{
+  const response = await fetch(API + "/api/activate",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+    key:key,
+    deviceId:deviceId
+   })
+  });
+
+  const data = await response.json();
+
+  if(!response.ok || !data.ok){
+   let msg = data.error || "KEY không hợp lệ hoặc không thể kích hoạt.";
+   if(data.remaining !== undefined){
+    msg += " Còn " + data.remaining + " lượt thử.";
+   }
+   if(data.remainingSeconds){
+    msg += " Vui lòng thử lại sau " + data.remainingSeconds + " giây.";
+   }
+   showMessage(msg,"error");
+   return;
   }
-});
-document.getElementById("activationForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const key = document.getElementById("key").value.trim();
-  const status = document.getElementById("feedback");
-  status.textContent = key ? "Giao diện đã nhận mã. Cần kết nối API để xác thực Key." : "Vui lòng nhập mã Key kích hoạt.";
+
+  const expiry = data.permanent
+   ? "Vĩnh viễn"
+   : new Date(data.expiresAt).toLocaleString("vi-VN");
+
+  showMessage(
+   "✅ KÍCH HOẠT THÀNH CÔNG! Hạn sử dụng: " + expiry +
+   ". Thiết bị: " + data.devicesUsed + "/" + data.maxDevices,
+   "success"
+  );
+
+  if(LIVE_URL !== "#"){
+   next.href = LIVE_URL;
+   next.classList.remove("disabled");
+   next.setAttribute("aria-disabled","false");
+  }else{
+   showMessage(
+    "Kích hoạt thành công! Hiện chưa cấu hình đường dẫn trang LIVE.",
+    "success"
+   );
+  }
+
+ }catch(error){
+  showMessage("Không thể kết nối máy chủ. Kiểm tra mạng hoặc cấu hình API.","error");
+ }finally{
+  btn.disabled = false;
+  btn.textContent = "⚡ XÁC MINH VÀ KÍCH HOẠT";
+ }
 });
 </script>
 </body>
