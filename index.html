@@ -1,260 +1,232 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#100f14">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b12">
 <title>VHN • Hệ thống tìm rương Xu</title>
 <style>
 :root{
- --bg:#100f14;--panel:#1a181f;--panel2:#141319;--line:#34313b;
- --cyan:#22e5e2;--blue:#1687ff;--orange:#ff9b24;--red:#ff3e69;
- --muted:#96919d;
+  --bg:#080a10;--panel:#11141d;--panel2:#171b26;--line:rgba(155,174,205,.15);
+  --muted:#929bad;--text:#f4f7ff;--cyan:#20e5e5;--blue:#398cff;
+  --orange:#ff9d28;--red:#ff4568;--purple:#a56bff;
 }
 *{box-sizing:border-box}
-html{min-height:100%;background:var(--bg)}
+html{scroll-behavior:smooth}
 body{
- margin:0;min-height:100vh;color:#f7f5f8;
- font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
- background:
- radial-gradient(ellipse at 50% -15%,#17343b 0,transparent 43%),
- radial-gradient(ellipse at 100% 55%,#261322 0,transparent 36%),
- linear-gradient(145deg,#100f14,#0b0a0e 75%);
+  margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  background:
+   radial-gradient(ellipse at 12% 0%,rgba(23,105,145,.18),transparent 34%),
+   radial-gradient(ellipse at 90% 18%,rgba(128,55,130,.13),transparent 30%),
+   linear-gradient(145deg,#080a10 0%,#0d1018 48%,#090b12 100%);
+  min-height:100vh;overflow-x:hidden;
 }
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;
+ background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+ background-size:36px 36px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
 button,input{font:inherit}
-button{cursor:pointer;color:inherit}
-.page{width:min(850px,100%);margin:auto;padding:22px 16px 48px}
-.panel{
- position:relative;isolation:isolate;overflow:hidden;
- background:linear-gradient(145deg,rgba(29,27,36,.985),rgba(15,15,22,.99));
- border:1px solid #45404b;border-radius:27px;padding:24px;
- box-shadow:0 22px 75px #000b,0 0 34px #00dede16,inset 0 1px 0 #ffffff0a;
+button{cursor:pointer}
+.shell{width:min(100%,980px);margin:auto;padding:22px 18px 54px;position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#123b45,#172235);border:1px solid rgba(32,229,229,.48);
+ box-shadow:0 0 24px rgba(32,229,229,.13);font-size:22px}
+.brand-name{font-weight:900;letter-spacing:.13em;font-size:13px;color:#dfe9f7}
+.brand-sub{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.08em}
+.status{display:flex;align-items:center;gap:8px;border:1px solid rgba(32,229,229,.25);background:rgba(32,229,229,.07);color:#8dfafa;padding:9px 12px;border-radius:99px;font-size:11px;font-weight:800;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:#31e5a1;box-shadow:0 0 10px #31e5a1}
+.hero{border:1px solid rgba(32,229,229,.23);border-radius:25px;padding:25px 24px 22px;position:relative;overflow:hidden;
+ background:linear-gradient(120deg,rgba(20,37,50,.96),rgba(21,20,34,.94) 55%,rgba(39,25,26,.9));
+ box-shadow:0 18px 60px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.05)}
+.hero:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:-100px;top:-140px;background:rgba(255,145,35,.12);filter:blur(12px)}
+.hero-kicker{font-size:11px;font-weight:800;letter-spacing:.22em;color:#8eabbf;text-transform:uppercase}
+h1{font-size:clamp(26px,5vw,43px);line-height:1.13;margin:12px 0 9px;letter-spacing:-.04em;font-weight:950}
+h1 span{background:linear-gradient(90deg,#ff9e32 0%,#ffcf54 45%,#ff6378 100%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{margin:0;color:#aab5c7;font-size:14px;line-height:1.65;max-width:620px}
+.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+.live-pill{display:flex;align-items:center;gap:9px;color:#b8c5d8;font-size:12px}
+.live-pill b{color:#5cf0c2}
+.refresh{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);color:#e8f0fc;padding:10px 14px;border-radius:12px;font-weight:750;font-size:12px;transition:.2s}
+.refresh:hover{border-color:rgba(32,229,229,.5);transform:translateY(-1px)}
+.quick-links{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:17px 0}
+.quick{min-height:66px;border-radius:17px;padding:14px 16px;display:flex;align-items:center;justify-content:center;gap:11px;
+ color:#f4f7ff;text-decoration:none;font-weight:850;font-size:15px;border:1px solid rgba(255,255,255,.12);transition:.2s}
+.quick:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.quick.zalo{background:linear-gradient(115deg,rgba(30,94,206,.22),rgba(19,37,76,.7));border-color:rgba(52,135,255,.5);box-shadow:inset 0 0 25px rgba(39,116,255,.07)}
+.quick.telegram{background:linear-gradient(115deg,rgba(18,144,190,.2),rgba(17,48,68,.75));border-color:rgba(32,190,225,.48);box-shadow:inset 0 0 25px rgba(32,190,225,.07)}
+.quick-icon{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);font-size:16px}
+.panel{border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg,rgba(20,24,34,.96),rgba(14,17,25,.96));padding:18px;margin-top:17px;box-shadow:0 12px 36px rgba(0,0,0,.2)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.panel-title{font-size:15px;font-weight:900;letter-spacing:.01em}
+.panel-hint{font-size:11px;color:var(--muted)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.tab{border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,#191c25,#12151d);color:#a4adbd;border-radius:14px;padding:13px 7px;font-size:13px;font-weight:850;transition:.2s}
+.tab.active{color:#fff;border-color:rgba(255,157,40,.8);background:linear-gradient(120deg,rgba(255,157,40,.2),rgba(22,42,50,.95));box-shadow:0 0 22px rgba(255,157,40,.1),inset 0 0 15px rgba(255,157,40,.07)}
+.tab:hover{color:white;border-color:rgba(255,157,40,.4)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 2px 12px}
+.toolbar strong{font-size:13px}
+.count{font-size:11px;color:#9aa6b9;background:#202532;border:1px solid rgba(255,255,255,.07);padding:6px 9px;border-radius:99px}
+.list{display:grid;gap:10px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:13px;padding:14px;border:1px solid rgba(255,255,255,.075);border-left:4px solid #27dfe0;border-radius:17px;background:linear-gradient(110deg,rgba(25,29,39,.98),rgba(19,22,31,.98));transition:.2s}
+.item:hover{border-color:rgba(32,229,229,.32);transform:translateY(-1px)}
+.item-main{min-width:0}
+.item-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.time{font-size:12px;color:#c0c9d7;font-variant-numeric:tabular-nums}
+.linkid{font-weight:900;color:#35e6e2;text-decoration:none;font-size:15px;overflow-wrap:anywhere}
+.meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:10px;font-weight:800;padding:4px 7px;border-radius:6px;background:rgba(255,157,40,.09);border:1px solid rgba(255,157,40,.28);color:#ffb14f}
+.tag.ratio{background:rgba(255,69,104,.08);border-color:rgba(255,69,104,.25);color:#ff718b}
+.timer{min-width:91px;text-align:center;border:1px solid rgba(32,229,229,.45);border-radius:13px;padding:7px 10px;background:rgba(32,229,229,.07);color:#35eeee}
+.timer b{display:block;font-size:20px;line-height:1.1;font-variant-numeric:tabular-nums}
+.timer small{display:block;color:#a6b7c7;font-size:9px;font-weight:850;letter-spacing:.08em;margin-top:4px}
+.timer.expired{border-color:rgba(255,69,104,.65);background:rgba(255,69,104,.1);color:#ff5275;box-shadow:0 0 18px rgba(255,69,104,.1)}
+.open{border:0;border-radius:12px;padding:12px 16px;color:white;font-weight:900;font-size:12px;background:linear-gradient(105deg,#ff426b,#ff941e);box-shadow:0 7px 18px rgba(255,77,85,.18);white-space:nowrap;transition:.2s}
+.open:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.empty{display:none;text-align:center;color:#aab5c7;padding:28px 12px;font-size:13px}
+.key-card{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
+.key-copy h2{margin:0 0 8px;font-size:20px}
+.key-copy p{margin:0;color:#a5afc0;font-size:13px;line-height:1.6}
+.key-form label{display:block;color:#dce5f2;font-size:12px;font-weight:800;margin-bottom:8px}
+.key-row{display:flex;gap:8px}
+.key-row input{min-width:0;flex:1;border:1px solid rgba(32,229,229,.35);background:#0b0e15;color:white;border-radius:12px;padding:13px 12px;outline:none}
+.key-row input:focus{border-color:#35e6e2;box-shadow:0 0 0 3px rgba(32,229,229,.08)}
+.activate{border:0;border-radius:12px;padding:0 17px;color:#17131a;font-weight:950;background:linear-gradient(110deg,#ff9d28,#ff596d);white-space:nowrap}
+.key-note{font-size:11px;color:#7f8b9e;margin-top:9px}
+.device{margin-top:14px;padding:12px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(0,0,0,.16);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.device code{font-size:11px;color:#aeb9ca;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy{border:1px solid rgba(255,255,255,.12);background:#252a36;color:#e9eef7;padding:8px 11px;border-radius:9px;font-size:11px;font-weight:800}
+.notice{display:none;margin-top:10px;color:#76e8bd;font-size:12px}
+.footer{text-align:center;color:#677286;font-size:11px;margin:23px 0 0}
+@media(max-width:640px){
+ .shell{padding:14px 12px 35px}.topbar{margin-bottom:13px}.brand-mark{width:39px;height:39px}
+ .hero{padding:21px 17px;border-radius:20px}.hero p{font-size:13px}
+ .quick-links{gap:9px}.quick{font-size:13px;padding:12px 8px;min-height:60px}
+ .panel{padding:14px;border-radius:18px}.tabs{gap:6px}.tab{font-size:11px;padding:12px 3px;border-radius:11px}
+ .item{grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px}
+ .timer{grid-column:2;grid-row:1;min-width:78px;padding:7px 8px}.timer b{font-size:18px}
+ .open{grid-column:2;grid-row:2;padding:11px 13px}
+ .item-main{grid-column:1;grid-row:1 / span 2}.item-top{gap:7px;display:grid}
+ .key-card{grid-template-columns:1fr}.key-row{flex-wrap:wrap}.key-row input{width:100%;flex-basis:100%}.activate{padding:12px 16px}
 }
-.panel:before{
- content:"";position:absolute;z-index:-1;inset:-2px;border-radius:inherit;
- background:conic-gradient(from 0deg,transparent 0 20%,#08dfe0 28%,transparent 38%,#ff8a1e 52%,transparent 64%,#ff3867 78%,transparent 90%);
- opacity:.34;filter:blur(18px);animation:spin 12s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes hue{to{filter:hue-rotate(360deg)}}
-@keyframes glow{
- 0%,100%{text-shadow:0 0 8px #00f0d566,0 0 20px #00bfff33}
- 50%{text-shadow:0 0 12px #ff9c2c99,0 0 30px #ff386766}
-}
-@keyframes gradientMove{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-@keyframes pulse{0%,100%{box-shadow:0 0 7px #00f0ad66,0 0 20px #00e5aa33}50%{box-shadow:0 0 15px #00ffc399,0 0 34px #00e5aa66}}
-@keyframes borderFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.brand{text-align:center;margin:0 0 24px}
-.brand-pill{
- display:inline-flex;align-items:center;justify-content:center;gap:10px;
- padding:12px 27px;border-radius:60px;background:#101116;
- border:1px solid #4a4249;position:relative;
- box-shadow:0 0 28px #ff9a2533,inset 0 0 18px #08e5e51a;
-}
-.brand-pill:after{
- content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;
- background:linear-gradient(90deg,#05e8db,#168aff,#b44bff,#ff3867,#ff9b20,#05e8db);
- background-size:250% 100%;animation:borderFlow 5s linear infinite;
- -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
- -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
-}
-.brand-text,.rainbow{
- background:linear-gradient(90deg,#ff9e20,#ff593c,#ffbd32,#28e5d9,#3c9fff,#c15cff,#ff4e75,#ff9e20);
- background-size:250% auto;color:transparent;background-clip:text;-webkit-background-clip:text;
- animation:gradientMove 7s ease-in-out infinite;
-}
-.brand-text{font-size:clamp(23px,5vw,32px);font-weight:950;letter-spacing:.2px}
-.orb{
- width:16px;height:16px;border-radius:50%;background:#12ffae;
- box-shadow:0 0 8px #00ffad,0 0 18px #00ffad,0 0 30px #00ffad;
- animation:pulse 1.8s ease-in-out infinite;flex:none;
-}
-.title{
- text-align:center;font-size:clamp(25px,5.5vw,37px);font-weight:950;
- line-height:1.22;margin:0 0 12px;
- background:linear-gradient(90deg,#ff9d22,#ff5b37,#ffd23d,#1ee9d8,#49a5ff,#c65aff,#ff426f,#ff9d22);
- background-size:300% 100%;color:transparent;background-clip:text;-webkit-background-clip:text;
- animation:gradientMove 6s linear infinite;
-}
-.subtitle{text-align:center;color:#b5b0bb;line-height:1.65;margin:0 0 25px}
-.statusline{
- display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
- padding:12px 14px;border:1px solid #413a43;border-radius:14px;
- background:#111016;margin:18px 0 22px;
-}
-.status-left{font:700 13px ui-monospace,monospace;color:#ddd8e0;letter-spacing:.7px}
-.status-left i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff941e;margin-right:8px;box-shadow:0 0 10px #ff941e}
-.status-time{color:var(--orange);font-weight:900;white-space:nowrap}
-.social{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 25px}
-.btn{
- border:1px solid #403b47;border-radius:15px;background:#211f27;
- padding:14px 17px;font-weight:850;transition:transform .18s,filter .18s,box-shadow .18s;
-}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.18)}
-.btn:active{transform:scale(.98)}
-.social .btn{font-size:clamp(15px,2.5vw,19px);min-height:68px}
-.btn-zalo{background:linear-gradient(110deg,#142348,#172039);border-color:#1769e8;box-shadow:0 0 18px #147cff22,inset 0 0 20px #1769e811}
-.btn-tele{background:linear-gradient(110deg,#112b35,#17212d);border-color:#07899c;box-shadow:0 0 18px #00dfe322,inset 0 0 20px #00dfe811}
-.label{display:block;font-size:17px;font-weight:900;margin:26px 0 9px}
-.inputrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
-input{
- width:100%;min-width:0;background:#101015;color:#fff;border:1px solid #087e82;
- border-radius:14px;padding:16px;font-size:16px;outline:none;
- box-shadow:inset 0 0 14px #00dada0b;
-}
-input:focus{border-color:#21e9e4;box-shadow:0 0 0 3px #00dada20,0 0 18px #00dada22}
-.btn-activate{
- border:0;padding:14px 22px;color:#17121a;font-size:17px;
- background:linear-gradient(105deg,#ff9a00 0%,#ff5a4e 48%,#28d8e0 100%);
- box-shadow:0 7px 24px #ff5b2833;
-}
-.divider-label{display:flex;align-items:center;gap:12px;color:#797481;font-size:13px;justify-content:center;margin:28px 0 12px}
-.divider-label:before,.divider-label:after{content:"";height:1px;background:#393540;flex:1}
-.devicebox{display:flex;align-items:center;gap:9px;padding:9px;background:#111016;border:1px solid #3a3540;border-radius:15px}
-.deviceid{color:#aaa5b0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font:14px ui-monospace,monospace;padding-left:7px}
-.copy{background:#29262e;border-color:#3b3741;min-width:92px}
-.note{text-align:center;color:#77717e;font-size:12px;line-height:1.5;margin:15px 0 0}
-.hidden{display:none!important}
-.notice{position:fixed;z-index:20;inset:0;background:#050409d9;display:grid;place-items:center;padding:18px}
-.notice-card{width:min(520px,100%);padding:25px;border-radius:23px;background:linear-gradient(145deg,#211e27,#15131a);border:1px solid #51434a;box-shadow:0 0 38px #ff941e22}
-.notice-card h2{text-align:center;margin:8px 0 12px;color:#ffab39}
-.notice-card p{text-align:center;color:#c5bfca;line-height:1.65}
-.notice-actions{display:flex;justify-content:flex-end;margin-top:18px}
-.dashhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.dashhead .title{text-align:left;margin:0}
-.refresh{background:none;border:0;color:#c9c5ce;font-size:32px;padding:0 5px;animation:float 2s ease-in-out infinite}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0;padding-bottom:20px;border-bottom:1px solid #393540}
-.tab{padding:13px 7px;color:#aaa5b0;background:#17151b}
-.tab.active{
- color:white;border-color:#ff941e;
- background:linear-gradient(110deg,#51351d,#25232a,#153039);
- box-shadow:0 0 18px #ff941e55,inset 0 0 15px #ff941e12;
-}
-.item{
- display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;
- background:linear-gradient(110deg,#1a181f,#17151b);border:1px solid #37323d;
- border-left:7px solid #22e5e2;border-radius:19px;padding:15px;margin:15px 0;
- box-shadow:0 8px 22px #0003;
-}
-.itemtime{font-size:17px;font-weight:850}.date{color:#77727f;margin-top:4px}
-.itemlink{display:inline-block;margin-top:5px;color:#1ce4e1;font-size:19px;font-weight:950;text-decoration:none}
-.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;font-size:13px}
-.tag{padding:3px 8px;border-radius:7px;background:#302319;border:1px solid #71451f;color:#ff9d3b}
-.ratio{background:#301c27;border-color:#70243e;color:#ff5279}
-.live{background:#281e38;border-color:#543578;color:#bb83ff}
-.clock{min-width:112px;text-align:center;border:2px solid #087e82;border-radius:15px;padding:8px 9px;color:#19e5df;background:#102326}
-.clock strong{display:block;font:950 24px ui-monospace,monospace}
-.clock small{display:block;color:#a3adb0;font-weight:850;letter-spacing:.5px}
-.clock.expired{border-color:#f12d5e;color:#ff416f;background:#2a111c;box-shadow:0 0 19px #ff285544}
-.clock.expired small{color:#ff5277}
-.open{white-space:nowrap;padding:14px 16px;font-size:16px;background:linear-gradient(100deg,#ff3267,#ff9800);border:0;box-shadow:0 5px 19px #ff573522}
-.footer{text-align:center;color:#6f6a75;font-size:12px;margin:24px 0 2px}
-@media(max-width:600px){
- .page{padding:10px 8px 28px}.panel{padding:15px;border-radius:21px}
- .brand-pill{padding:10px 17px}.social .btn{min-height:59px;padding:10px 6px}
- .inputrow{grid-template-columns:1fr}.btn-activate{width:100%}
- .tabs{gap:7px}.tab{font-size:13px;padding:12px 4px}
- .item{grid-template-columns:minmax(0,1fr) auto;padding:12px;gap:9px}
- .clock{min-width:96px}.clock strong{font-size:20px}
- .open{grid-column:1/-1;width:100%;padding:12px}
- .statusline{font-size:12px}.status-left{letter-spacing:0}
-}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="notice" id="notice">
- <div class="notice-card">
-  <div style="text-align:center;font-size:30px">📢</div>
-  <h2>Thông Báo Hệ Thống</h2>
-  <p>Đây là bản giao diện demo. Mã Key chỉ được xử lý ngay trên trình duyệt; không gửi lên máy chủ. Dữ liệu rương hiển thị bên trong là dữ liệu minh họa.</p>
-  <div class="notice-actions"><button class="btn btn-activate" onclick="closeNotice()">Đã hiểu / Tiếp tục</button></div>
- </div>
-</div>
-<main class="page">
-<section id="activation" class="panel">
- <div class="brand"><div class="brand-pill"><span class="orb"></span><span class="brand-text">👑 Võ Hoài Nam ✨</span></div></div>
- <h1 class="title">Hệ thống tìm rương Xu - VHN</h1>
- <p class="subtitle">Hơn 100.000 live mỗi ngày<br>được BOT quét liên tục 24/24</p>
- <div class="social">
-  <button class="btn btn-zalo" onclick="showInfo('Nhóm Zalo')">🔵 Nhóm Zalo</button>
-  <button class="btn btn-tele" onclick="showInfo('Nhóm Telegram')">✈️ Nhóm Telegram</button>
- </div>
- <label class="label" for="key">🔑 Nhập Mã Key Kích Hoạt:</label>
- <div class="inputrow">
-  <input id="key" placeholder="VD: VIP-8A2B-X7K1-9M4P" autocomplete="off">
-  <button class="btn btn-activate" onclick="activate()">⚡ Kích Hoạt</button>
- </div>
- <div class="divider-label">MÃ THIẾT BỊ CỦA BẠN</div>
- <div class="devicebox"><span class="deviceid" id="device">device_demo_0d9a4828-b490-4728-83e2...</span><button class="btn copy" onclick="copyDevice()">Sao chép</button></div>
- <p class="note">Giao diện minh họa • Không thu thập hoặc gửi Key đi nơi khác</p>
-</section>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">👑</div>
+      <div><div class="brand-name">VHN SYSTEM</div><div class="brand-sub">SMART LIVE DISCOVERY</div></div>
+    </div>
+    <div class="status"><span class="dot"></span> GIAO DIỆN DEMO</div>
+  </header>
 
-<section id="dashboard" class="panel hidden">
- <div class="dashhead">
-  <h1 class="title">🟢 Hệ thống tìm rương Xu - VHN</h1>
-  <button class="refresh" onclick="render()" aria-label="Làm mới">⟳</button>
- </div>
- <div class="statusline">
-  <span class="status-left"><i></i>···cb58–25/11/26–···449E</span>
-  <span class="status-time">⌛ Còn: <span id="systemTimer">00:59:59</span></span>
- </div>
- <div class="social">
-  <button class="btn btn-zalo" onclick="showInfo('Nhóm Zalo')">🔵 Nhóm Zalo</button>
-  <button class="btn btn-tele" onclick="showInfo('Nhóm Telegram')">✈️ Nhóm Telegram</button>
- </div>
- <div class="tabs">
-  <button class="btn tab active" onclick="changeTab(0,this)">Rương xu</button>
-  <button class="btn tab" onclick="changeTab(1,this)">Rương treo</button>
-  <button class="btn tab" onclick="changeTab(2,this)">Túi xu</button>
-  <button class="btn tab" onclick="changeTab(3,this)">Kênh Test</button>
- </div>
- <div id="items"></div>
- <div class="footer">VHN • DEMO GIAO DIỆN • KHÔNG KẾT NỐI NGUỒN LIVE</div>
-</section>
+  <section class="hero">
+    <div class="hero-kicker">Võ Hoài Nam • Control Center</div>
+    <h1><span>Hệ thống tìm rương Xu</span></h1>
+    <p>Theo dõi danh sách phiên LIVE, xem thông tin rương và mở liên kết nhanh trong một giao diện gọn gàng.</p>
+    <div class="hero-bottom">
+      <div class="live-pill"><span class="dot"></span> <span><b>Hệ thống sẵn sàng</b> · Bản xem trước giao diện</span></div>
+      <button class="refresh" id="refreshBtn">↻ &nbsp; Làm mới giao diện</button>
+    </div>
+  </section>
+
+  <nav class="quick-links" aria-label="Liên kết nhóm">
+    <a class="quick zalo" href="#" onclick="return placeholderLink(event)"><span class="quick-icon">Z</span> Nhóm Zalo</a>
+    <a class="quick telegram" href="#" onclick="return placeholderLink(event)"><span class="quick-icon">➤</span> Nhóm Telegram</a>
+  </nav>
+
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title">Danh mục theo dõi</div><div class="panel-hint">Chọn mục để xem danh sách</div></div>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-kind="xu">Rương xu</button>
+      <button class="tab" data-kind="treo">Rương treo</button>
+      <button class="tab" data-kind="tui">Túi xu</button>
+      <button class="tab" data-kind="test">Kênh Test</button>
+    </div>
+    <div class="toolbar"><strong id="listTitle">Rương xu mới phát hiện</strong><span class="count" id="count">06 kết quả demo</span></div>
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty">Chưa có dữ liệu demo cho danh mục này.</div>
+  </section>
+
+  <section class="panel key-card">
+    <div class="key-copy">
+      <h2>🔑 Kích hoạt thiết bị</h2>
+      <p>Nhập mã Key để xem luồng giao diện sau kích hoạt. Bản này là mô phỏng phía trình duyệt, chưa xác thực Key với máy chủ.</p>
+      <div class="device"><code id="deviceId">device_vhn_demo_8f29a1c4</code><button class="copy" id="copyDevice">Sao chép ID</button></div>
+    </div>
+    <div class="key-form">
+      <label for="keyInput">NHẬP MÃ KEY KÍCH HOẠT</label>
+      <div class="key-row"><input id="keyInput" placeholder="VD: VHN-XXXX-XXXX" autocomplete="off"><button class="activate" id="activateBtn">⚡ Kích hoạt</button></div>
+      <div class="key-note">Bản demo: chấp nhận nội dung bất kỳ, không gửi Key đi đâu.</div>
+      <div class="notice" id="notice">✓ Đã mở giao diện demo thành công.</div>
+    </div>
+  </section>
+  <footer class="footer">VHN SYSTEM · DEMO UI · Không phải dữ liệu quét trực tiếp</footer>
 </main>
 <script>
-const samples=[
- [['5487381','33/8','4.1',49],['5487314','100/25','4.0',49],['5487312','31/5','6.2',61],['5487309','20/5','4.0',46],['5487306','35/5','7.0',60],['5487302','50/10','5.0',0]],
- [['5487386','50/5','10.0',0],['5487348','21/8','2.6',0],['5487343','49/15','3.3',0],['5487340','20/2','10.0',0],['5487328','50/20','2.5',0],['5487323','20/7','2.9',0]],
- [['5487390','20/5','4.0',60],['5487388','35/7','5.0',45],['5487370','50/10','5.0',30]],
- [['5487395','100/25','4.0',75],['5487392','31/5','6.2',60],['5487389','20/5','4.0',45]]
-];
-let data=samples.map(g=>g.map(x=>[...x])),tab=0,systemSeconds=3599;
-function closeNotice(){document.getElementById('notice').classList.add('hidden')}
-function showInfo(s){alert(s+' — liên kết chưa được cấu hình trong bản demo.')}
-function activate(){
- // Bản demo: chấp nhận nội dung nhập tại chỗ, không gửi key ra ngoài.
- document.getElementById('activation').classList.add('hidden');
- document.getElementById('dashboard').classList.remove('hidden');
- render();
+const demoData={
+ xu:[
+  ["15:03:58","link5487381","21/7","3.0",85],
+  ["15:03:57","link5487380","20/16","1.3",0],
+  ["15:03:57","link5487379","20/16","1.3",0],
+  ["15:03:57","link5487378","20/16","1.3",82],
+  ["15:03:57","link5487377","21/9","2.3",83],
+  ["15:03:56","link5487374","100/25","4.0",83]
+ ],
+ treo:[
+  ["15:04:01","link5487386","50/5","10.0",0],
+  ["15:03:45","link5487348","21/8","2.6",0],
+  ["15:03:43","link5487343","49/15","3.3",0],
+  ["15:03:42","link5487340","20/2","10.0",0],
+  ["15:03:41","link5487328","50/20","2.5",0]
+ ],
+ tui:[
+  ["15:03:36","link5487317","33/8","4.1",49],
+  ["15:03:35","link5487314","100/25","4.0",49],
+  ["15:03:33","link5487312","31/5","6.2",61]
+ ],
+ test:[
+  ["15:03:33","link5487309","20/5","4.0",46],
+  ["15:03:32","link5487306","35/5","7.0",60],
+  ["15:03:28","link5487293","31/5","6.2",61]
+ ]
+};
+const titles={xu:"Rương xu mới phát hiện",treo:"Rương treo",tui:"Túi xu",test:"Kênh Test"};
+let current="xu";
+function render(kind){
+ current=kind;
+ document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.kind===kind));
+ document.getElementById("listTitle").textContent=titles[kind];
+ const rows=demoData[kind]||[];
+ document.getElementById("count").textContent=String(rows.length).padStart(2,"0")+" kết quả demo";
+ document.getElementById("empty").style.display=rows.length?"none":"block";
+ document.getElementById("list").innerHTML=rows.map((r,i)=>{
+  const expired=r[4]===0;
+  const timer=expired?"00:00":`00:${String(r[4]).padStart(2,"0")}`;
+  return `<article class="item">
+   <div class="item-main"><div class="item-top"><span class="time">${r[0]}</span><a class="linkid" href="#" onclick="return placeholderLink(event)">${r[1]}</a></div>
+   <div class="meta"><span class="tag">Box: ${r[2]}</span><span class="tag ratio">Ratio: ${r[3]}</span></div></div>
+   <div class="timer ${expired?"expired":""}"><b>${timer}</b><small>${expired?"NỔ NGAY":"CÒN LẠI"}</small></div>
+   <button class="open" onclick="demoOpen('${r[1]}')">Mở Link</button>
+  </article>`;
+ }).join("");
 }
-function changeTab(n,el){tab=n;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');render()}
-function fmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
-function render(){
- const root=document.getElementById('items');root.innerHTML='';
- data[tab].forEach((v,i)=>{
-  const [id,box,ratio,secs]=v,dead=secs<=0;
-  const card=document.createElement('article');card.className='item';
-  const main=document.createElement('div');
-  main.innerHTML=`<div class="itemtime">15:03:${String(58-i).padStart(2,'0')}</div><div class="date">25/11/26</div><a class="itemlink" href="#" onclick="event.preventDefault();showInfo('Link mẫu ${id}')">link${id}</a><div class="meta"><span class="tag">Box: ${box}</span><span class="tag ratio">Ratio: ${ratio}</span></div>`;
-  const clock=document.createElement('div');clock.className='clock'+(dead?' expired':'');clock.innerHTML=`<strong>${dead?'00:00':fmt(secs)}</strong><small>${dead?'NỔ NGAY':'CÒN LẠI'}</small>`;
-  const open=document.createElement('button');open.className='btn open';open.textContent='Mở Link';open.onclick=()=>showInfo('Link mẫu link'+id);
-  card.append(main,clock,open);root.append(card);
- });
-}
-function copyDevice(){
- const v=document.getElementById('device').textContent;
- if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(v).then(()=>alert('Đã sao chép ID thiết bị!')).catch(()=>alert(v));
- else{const t=document.createElement('textarea');t.value=v;document.body.append(t);t.select();document.execCommand('copy');t.remove();alert('Đã sao chép ID thiết bị!')}
-}
-setInterval(()=>{
- if(systemSeconds>0)systemSeconds--;
- document.getElementById('systemTimer').textContent='00:'+fmt(systemSeconds);
- data.forEach(g=>g.forEach(v=>{if(v[3]>0)v[3]--}));
- if(!document.getElementById('dashboard').classList.contains('hidden'))render();
-},1000);
+function placeholderLink(e){e.preventDefault();alert("Bạn hãy thay URL nhóm Zalo/Telegram thật trong file trước khi sử dụng.");return false}
+function demoOpen(id){alert("Đây là liên kết minh họa: "+id+". Hãy kết nối nguồn dữ liệu thật để mở LIVE.");}
+document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)render(b.dataset.kind)});
+document.getElementById("refreshBtn").addEventListener("click",()=>render(current));
+document.getElementById("activateBtn").addEventListener("click",()=>{
+ const value=document.getElementById("keyInput").value.trim();
+ if(!value){document.getElementById("keyInput").focus();return}
+ document.getElementById("notice").style.display="block";
+});
+document.getElementById("copyDevice").addEventListener("click",async()=>{
+ const text=document.getElementById("deviceId").textContent;
+ try{await navigator.clipboard.writeText(text);document.getElementById("copyDevice").textContent="Đã chép"}
+ catch{document.getElementById("copyDevice").textContent="Không chép được"}
+});
+render("xu");
 </script>
 </body>
 </html>
