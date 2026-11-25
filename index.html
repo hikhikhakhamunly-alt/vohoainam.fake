@@ -3,74 +3,165 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111016">
-<title>Hệ thống tìm rương Xu - VHN</title>
+<meta name="theme-color" content="#100f14">
+<title>VHN • Hệ thống tìm rương Xu</title>
 <style>
-:root{--bg:#100f14;--panel:#19171e;--line:#302d37;--cyan:#22e4e4;--orange:#ff941e;--pink:#ff3e68;--muted:#85818d}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% 0%,#17242a 0,#100f14 48%,#0b0a0e 100%);color:#f5f4f7;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer;color:inherit}
-.wrap{width:min(850px,100%);margin:auto;padding:18px 16px 50px}
-.brand{text-align:center;margin:8px auto 22px}
-.brand-name{display:inline-block;padding:13px 28px;border-radius:50px;background:#11151a;border:1px solid #38313b;box-shadow:0 0 28px #ff8d1833;font-weight:900;font-size:clamp(23px,5vw,34px);letter-spacing:.3px;background-image:linear-gradient(90deg,#ffb12b,#ff6842,#ffb12b);background-clip:text;color:transparent}
-.shell{background:linear-gradient(145deg,#1b1921,#151319);border:1px solid #393540;border-radius:25px;padding:22px;box-shadow:0 18px 60px #0008}
-.hero-title{margin:0 0 9px;text-align:center;font-size:clamp(24px,5vw,35px);font-weight:900;line-height:1.2;background:linear-gradient(90deg,#ff9d24,#ffce54,#ff6b32);background-clip:text;color:transparent;text-shadow:0 0 25px #ff8b1833}
-.sub{text-align:center;color:#aaa6b1;line-height:1.6;margin:0 0 24px}
-.btn{border:1px solid #3c3944;background:#211f27;border-radius:15px;padding:14px 17px;font-weight:800;transition:.18s}
-.btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.btn-blue{border:1px solid #147cff;background:#15223e;box-shadow:0 0 18px #147cff22}
-.btn-cyan{border:1px solid #087e91;background:#142a34;box-shadow:0 0 18px #00d9e322}
-.btn-hot{border:0;background:linear-gradient(105deg,#ff3d68,#ff9b00);box-shadow:0 7px 24px #ff5b2833}
-.btn-wide{width:100%;font-size:17px}
-.social{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
-.social .btn{font-size:18px;min-height:65px}
-.field-label{display:block;font-weight:800;margin:24px 0 8px}
-.input-row{display:flex;gap:10px}
-input{width:100%;min-width:0;background:#101015;border:1px solid #087e82;border-radius:14px;padding:16px;color:white;outline:none}
-input:focus{box-shadow:0 0 0 3px #00dada22;border-color:var(--cyan)}
-.copyrow{display:flex;align-items:center;gap:10px;background:#111016;border:1px solid #38343e;border-radius:15px;padding:10px;margin-top:10px}
-.device{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aaa;flex:1;font-family:ui-monospace,monospace}
-.muted{text-align:center;color:#77717f;font-size:13px;margin:24px 0 8px}
-.notice{position:fixed;inset:0;z-index:10;background:#050509d9;display:grid;place-items:center;padding:18px}
-.notice-card{width:min(540px,100%);background:linear-gradient(145deg,#211d27,#15131a);border:1px solid #51424a;border-radius:22px;padding:24px;box-shadow:0 0 45px #ff941e22}
-.notice-card h2{margin:8px 0 12px;color:#ffb13d;text-align:center}
-.notice-card p{color:#c3bdc8;line-height:1.65;text-align:center}
-.notice-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 18px}
-.topbar .hero-title{text-align:left;margin:0}
-.refresh{border:0;background:transparent;font-size:29px;color:#bdb9c3}
-.status{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#111016;border:1px solid #38343d;border-radius:14px;padding:12px 14px;margin:18px 0}
-.status-code{font-family:ui-monospace,monospace;letter-spacing:1px;color:#d8d5dc}
-.remaining{color:#ff9b30;font-weight:900;white-space:nowrap}
-.dash-social{margin:20px 0}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0;padding-bottom:20px;border-bottom:1px solid #38343d}
-.tab{padding:13px 8px;color:#a7a2ad}
-.tab.active{color:#fff;border-color:#ff921c;background:linear-gradient(110deg,#49301d,#1b2226);box-shadow:0 0 18px #ff941e35}
-.item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:13px;background:linear-gradient(110deg,#1a181f,#17151b);border:1px solid #35313b;border-left:7px solid var(--cyan);border-radius:19px;padding:16px;margin:15px 0;box-shadow:0 8px 20px #0002}
-.item-time{font-weight:800;font-size:17px}
-.item-date{color:#77727e;margin-top:4px}
-.item-link{display:inline-block;color:var(--cyan);font-size:19px;font-weight:900;text-decoration:none;margin-top:5px}
-.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;font-size:13px}
-.tag{padding:3px 8px;border-radius:7px;background:#32251c;border:1px solid #70401b;color:#ff9c39}
-.tag.ratio{background:#301c27;border-color:#67243c;color:#ff5277}
-.tag.live{background:#271d37;border-color:#503174;color:#b77aff}
-.clock{min-width:112px;text-align:center;border:2px solid #087e82;border-radius:15px;padding:8px 10px;color:#16e4df;background:#102326}
-.clock strong{display:block;font:900 24px ui-monospace,monospace}
-.clock small{display:block;color:#9ca8ad;font-weight:800;letter-spacing:.5px}
-.clock.expired{border-color:#e32d58;color:#ff416d;background:#2a111b;box-shadow:0 0 20px #ff285544}
-.clock.expired small{color:#ff5277}
-.open{padding:14px 16px;white-space:nowrap;font-size:16px}
-.footer{text-align:center;color:#706b77;font-size:12px;margin:22px 0}
-.hidden{display:none!important}
-@media(max-width:600px){
- .wrap{padding:10px 9px 30px}.shell{padding:15px;border-radius:20px}
- .social .btn{font-size:15px;min-height:58px;padding:10px 7px}
- .tabs{gap:7px}.tab{font-size:13px;padding:12px 5px}
- .item{grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px}
- .item-main{min-width:0}.clock{min-width:95px}.clock strong{font-size:20px}
- .open{grid-column:1/-1;width:100%;padding:12px}
- .status{font-size:12px}.status-code{letter-spacing:0}
+:root{
+ --bg:#100f14;--panel:#1a181f;--panel2:#141319;--line:#34313b;
+ --cyan:#22e5e2;--blue:#1687ff;--orange:#ff9b24;--red:#ff3e69;
+ --muted:#96919d;
 }
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--bg)}
+body{
+ margin:0;min-height:100vh;color:#f7f5f8;
+ font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+ background:
+ radial-gradient(ellipse at 50% -15%,#17343b 0,transparent 43%),
+ radial-gradient(ellipse at 100% 55%,#261322 0,transparent 36%),
+ linear-gradient(145deg,#100f14,#0b0a0e 75%);
+}
+button,input{font:inherit}
+button{cursor:pointer;color:inherit}
+.page{width:min(850px,100%);margin:auto;padding:22px 16px 48px}
+.panel{
+ position:relative;isolation:isolate;overflow:hidden;
+ background:linear-gradient(145deg,rgba(29,26,34,.97),rgba(19,17,24,.98));
+ border:1px solid #393540;border-radius:27px;padding:24px;
+ box-shadow:0 20px 70px #0009,0 0 30px #00dede0c;
+}
+.panel:before{
+ content:"";position:absolute;z-index:-1;inset:-2px;border-radius:inherit;
+ background:conic-gradient(from 0deg,transparent 0 20%,#08dfe0 28%,transparent 38%,#ff8a1e 52%,transparent 64%,#ff3867 78%,transparent 90%);
+ opacity:.34;filter:blur(18px);animation:spin 12s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+@keyframes glow{
+ 0%,100%{text-shadow:0 0 8px #00f0d566,0 0 20px #00bfff33}
+ 50%{text-shadow:0 0 12px #ff9c2c99,0 0 30px #ff386766}
+}
+@keyframes gradientMove{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes pulse{0%,100%{box-shadow:0 0 7px #00f0ad66,0 0 20px #00e5aa33}50%{box-shadow:0 0 15px #00ffc399,0 0 34px #00e5aa66}}
+@keyframes borderFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.brand{text-align:center;margin:0 0 24px}
+.brand-pill{
+ display:inline-flex;align-items:center;justify-content:center;gap:10px;
+ padding:12px 27px;border-radius:60px;background:#101116;
+ border:1px solid #4a4249;position:relative;
+ box-shadow:0 0 28px #ff9a2533,inset 0 0 18px #08e5e51a;
+}
+.brand-pill:after{
+ content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;
+ background:linear-gradient(90deg,#05e8db,#168aff,#b44bff,#ff3867,#ff9b20,#05e8db);
+ background-size:250% 100%;animation:borderFlow 5s linear infinite;
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.brand-text,.rainbow{
+ background:linear-gradient(90deg,#ff9e20,#ff593c,#ffbd32,#28e5d9,#3c9fff,#c15cff,#ff4e75,#ff9e20);
+ background-size:250% auto;color:transparent;background-clip:text;-webkit-background-clip:text;
+ animation:gradientMove 5s linear infinite,hue 12s linear infinite;
+}
+.brand-text{font-size:clamp(23px,5vw,32px);font-weight:950;letter-spacing:.2px}
+.orb{
+ width:16px;height:16px;border-radius:50%;background:#12ffae;
+ box-shadow:0 0 8px #00ffad,0 0 18px #00ffad,0 0 30px #00ffad;
+ animation:pulse 1.8s ease-in-out infinite;flex:none;
+}
+.title{
+ text-align:center;font-size:clamp(25px,5.5vw,37px);font-weight:950;
+ line-height:1.22;margin:0 0 12px;
+ background:linear-gradient(90deg,#ff9d22,#ff5b37,#ffd23d,#1ee9d8,#49a5ff,#c65aff,#ff426f,#ff9d22);
+ background-size:300% 100%;color:transparent;background-clip:text;-webkit-background-clip:text;
+ animation:gradientMove 6s linear infinite;
+}
+.subtitle{text-align:center;color:#b5b0bb;line-height:1.65;margin:0 0 25px}
+.statusline{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+ padding:12px 14px;border:1px solid #413a43;border-radius:14px;
+ background:#111016;margin:18px 0 22px;
+}
+.status-left{font:700 13px ui-monospace,monospace;color:#ddd8e0;letter-spacing:.7px}
+.status-left i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff941e;margin-right:8px;box-shadow:0 0 10px #ff941e}
+.status-time{color:var(--orange);font-weight:900;white-space:nowrap}
+.social{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 25px}
+.btn{
+ border:1px solid #403b47;border-radius:15px;background:#211f27;
+ padding:14px 17px;font-weight:850;transition:transform .18s,filter .18s,box-shadow .18s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.18)}
+.btn:active{transform:scale(.98)}
+.social .btn{font-size:clamp(15px,2.5vw,19px);min-height:68px}
+.btn-zalo{background:linear-gradient(110deg,#142348,#172039);border-color:#1769e8;box-shadow:0 0 18px #147cff22,inset 0 0 20px #1769e811}
+.btn-tele{background:linear-gradient(110deg,#112b35,#17212d);border-color:#07899c;box-shadow:0 0 18px #00dfe322,inset 0 0 20px #00dfe811}
+.label{display:block;font-size:17px;font-weight:900;margin:26px 0 9px}
+.inputrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+input{
+ width:100%;min-width:0;background:#101015;color:#fff;border:1px solid #087e82;
+ border-radius:14px;padding:16px;font-size:16px;outline:none;
+ box-shadow:inset 0 0 14px #00dada0b;
+}
+input:focus{border-color:#21e9e4;box-shadow:0 0 0 3px #00dada20,0 0 18px #00dada22}
+.btn-activate{
+ border:0;padding:14px 22px;color:#17121a;font-size:17px;
+ background:linear-gradient(105deg,#ff9a00,#ff3867,#28d8e0);
+ background-size:220% 100%;animation:gradientMove 4s linear infinite;
+ box-shadow:0 7px 24px #ff5b2833;
+}
+.divider-label{display:flex;align-items:center;gap:12px;color:#797481;font-size:13px;justify-content:center;margin:28px 0 12px}
+.divider-label:before,.divider-label:after{content:"";height:1px;background:#393540;flex:1}
+.devicebox{display:flex;align-items:center;gap:9px;padding:9px;background:#111016;border:1px solid #3a3540;border-radius:15px}
+.deviceid{color:#aaa5b0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font:14px ui-monospace,monospace;padding-left:7px}
+.copy{background:#29262e;border-color:#3b3741;min-width:92px}
+.note{text-align:center;color:#77717e;font-size:12px;line-height:1.5;margin:15px 0 0}
+.hidden{display:none!important}
+.notice{position:fixed;z-index:20;inset:0;background:#050409d9;display:grid;place-items:center;padding:18px}
+.notice-card{width:min(520px,100%);padding:25px;border-radius:23px;background:linear-gradient(145deg,#211e27,#15131a);border:1px solid #51434a;box-shadow:0 0 38px #ff941e22}
+.notice-card h2{text-align:center;margin:8px 0 12px;color:#ffab39}
+.notice-card p{text-align:center;color:#c5bfca;line-height:1.65}
+.notice-actions{display:flex;justify-content:flex-end;margin-top:18px}
+.dashhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dashhead .title{text-align:left;margin:0}
+.refresh{background:none;border:0;color:#c9c5ce;font-size:32px;padding:0 5px;animation:float 2s ease-in-out infinite}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0;padding-bottom:20px;border-bottom:1px solid #393540}
+.tab{padding:13px 7px;color:#aaa5b0;background:#17151b}
+.tab.active{
+ color:white;border-color:#ff941e;
+ background:linear-gradient(110deg,#51351d,#25232a,#153039);
+ box-shadow:0 0 18px #ff941e55,inset 0 0 15px #ff941e12;
+}
+.item{
+ display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;
+ background:linear-gradient(110deg,#1a181f,#17151b);border:1px solid #37323d;
+ border-left:7px solid #22e5e2;border-radius:19px;padding:15px;margin:15px 0;
+ box-shadow:0 8px 22px #0003;
+}
+.itemtime{font-size:17px;font-weight:850}.date{color:#77727f;margin-top:4px}
+.itemlink{display:inline-block;margin-top:5px;color:#1ce4e1;font-size:19px;font-weight:950;text-decoration:none}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;font-size:13px}
+.tag{padding:3px 8px;border-radius:7px;background:#302319;border:1px solid #71451f;color:#ff9d3b}
+.ratio{background:#301c27;border-color:#70243e;color:#ff5279}
+.live{background:#281e38;border-color:#543578;color:#bb83ff}
+.clock{min-width:112px;text-align:center;border:2px solid #087e82;border-radius:15px;padding:8px 9px;color:#19e5df;background:#102326}
+.clock strong{display:block;font:950 24px ui-monospace,monospace}
+.clock small{display:block;color:#a3adb0;font-weight:850;letter-spacing:.5px}
+.clock.expired{border-color:#f12d5e;color:#ff416f;background:#2a111c;box-shadow:0 0 19px #ff285544}
+.clock.expired small{color:#ff5277}
+.open{white-space:nowrap;padding:14px 16px;font-size:16px;background:linear-gradient(100deg,#ff3267,#ff9800);border:0;box-shadow:0 5px 19px #ff573522}
+.footer{text-align:center;color:#6f6a75;font-size:12px;margin:24px 0 2px}
+@media(max-width:600px){
+ .page{padding:10px 8px 28px}.panel{padding:15px;border-radius:21px}
+ .brand-pill{padding:10px 17px}.social .btn{min-height:59px;padding:10px 6px}
+ .inputrow{grid-template-columns:1fr}.btn-activate{width:100%}
+ .tabs{gap:7px}.tab{font-size:13px;padding:12px 4px}
+ .item{grid-template-columns:minmax(0,1fr) auto;padding:12px;gap:9px}
+ .clock{min-width:96px}.clock strong{font-size:20px}
+ .open{grid-column:1/-1;width:100%;padding:12px}
+ .statusline{font-size:12px}.status-left{letter-spacing:0}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -78,98 +169,91 @@ input:focus{box-shadow:0 0 0 3px #00dada22;border-color:var(--cyan)}
  <div class="notice-card">
   <div style="text-align:center;font-size:30px">📢</div>
   <h2>Thông Báo Hệ Thống</h2>
-  <p>Đây là giao diện minh họa VHN. Các dữ liệu rương và thời gian bên trong là dữ liệu mẫu, không phải kết quả quét trực tiếp.</p>
-  <div class="notice-actions">
-   <button class="btn" onclick="document.getElementById('notice').classList.add('hidden')">×</button>
-   <button class="btn btn-hot" onclick="document.getElementById('notice').classList.add('hidden')">Đã hiểu / Tiếp tục</button>
-  </div>
+  <p>Đây là bản giao diện demo. Mã Key chỉ được xử lý ngay trên trình duyệt; không gửi lên máy chủ. Dữ liệu rương hiển thị bên trong là dữ liệu minh họa.</p>
+  <div class="notice-actions"><button class="btn btn-activate" onclick="closeNotice()">Đã hiểu / Tiếp tục</button></div>
  </div>
 </div>
-<main class="wrap">
- <section id="activation" class="shell">
-  <div class="brand"><div class="brand-name">👑 Võ Hoài Nam ✨</div></div>
-  <h1 class="hero-title">Hệ thống tìm rương Xu - VHN</h1>
-  <p class="sub">Hơn 100.000 live mỗi ngày<br>được BOT quét liên tục 24/24</p>
-  <div class="social">
-   <button class="btn btn-blue" onclick="demoNotice('Nhóm Zalo')">🔵 Nhóm Zalo</button>
-   <button class="btn btn-cyan" onclick="demoNotice('Nhóm Telegram')">✈️ Nhóm Telegram</button>
-  </div>
-  <label class="field-label" for="key">🔑 Nhập Mã Key Kích Hoạt Thiết Bị:</label>
-  <div class="input-row">
-   <input id="key" placeholder="VD: VIP-8A2B-X7K1-9M4P" autocomplete="off">
-   <button class="btn btn-hot" onclick="activate()">⚡ Kích Hoạt</button>
-  </div>
-  <div class="muted">MÃ THIẾT BỊ CỦA BẠN (DEMO)</div>
-  <div class="copyrow"><span class="device" id="device">device_demo_0d9a4828-b490-4728-83e2</span><button class="btn" onclick="copyDevice()">Sao chép</button></div>
-  <p class="muted" style="margin-bottom:0">Bản giao diện demo — không xác thực key với máy chủ.</p>
- </section>
+<main class="page">
+<section id="activation" class="panel">
+ <div class="brand"><div class="brand-pill"><span class="orb"></span><span class="brand-text">👑 Võ Hoài Nam ✨</span></div></div>
+ <h1 class="title">Hệ thống tìm rương Xu - VHN</h1>
+ <p class="subtitle">Hơn 100.000 live mỗi ngày<br>được BOT quét liên tục 24/24</p>
+ <div class="social">
+  <button class="btn btn-zalo" onclick="showInfo('Nhóm Zalo')">🔵 Nhóm Zalo</button>
+  <button class="btn btn-tele" onclick="showInfo('Nhóm Telegram')">✈️ Nhóm Telegram</button>
+ </div>
+ <label class="label" for="key">🔑 Nhập Mã Key Kích Hoạt:</label>
+ <div class="inputrow">
+  <input id="key" placeholder="VD: VIP-8A2B-X7K1-9M4P" autocomplete="off">
+  <button class="btn btn-activate" onclick="activate()">⚡ Kích Hoạt</button>
+ </div>
+ <div class="divider-label">MÃ THIẾT BỊ CỦA BẠN</div>
+ <div class="devicebox"><span class="deviceid" id="device">device_demo_0d9a4828-b490-4728-83e2...</span><button class="btn copy" onclick="copyDevice()">Sao chép</button></div>
+ <p class="note">Giao diện minh họa • Không thu thập hoặc gửi Key đi nơi khác</p>
+</section>
 
- <section id="dashboard" class="shell hidden">
-  <div class="topbar">
-   <h1 class="hero-title">🟢 Hệ thống tìm rương Xu - VHN</h1>
-   <button class="refresh" title="Làm mới danh sách" onclick="render()">⟳</button>
-  </div>
-  <div class="status">
-   <span class="status-code">🟠 ···cb58–25/11/26–···449E</span>
-   <span class="remaining">⌛ Còn: <span id="systemTimer">00:59:59</span></span>
-  </div>
-  <div class="social dash-social">
-   <button class="btn btn-blue" onclick="demoNotice('Nhóm Zalo')">🔵 Nhóm Zalo</button>
-   <button class="btn btn-cyan" onclick="demoNotice('Nhóm Telegram')">✈️ Nhóm Telegram</button>
-  </div>
-  <div class="tabs" id="tabs">
-   <button class="btn tab active" onclick="changeTab(0,this)">Rương xu</button>
-   <button class="btn tab" onclick="changeTab(1,this)">Rương treo</button>
-   <button class="btn tab" onclick="changeTab(2,this)">Túi xu</button>
-   <button class="btn tab" onclick="changeTab(3,this)">Kênh Test</button>
-  </div>
-  <div id="items"></div>
-  <div class="footer">VHN • GIAO DIỆN DEMO • DỮ LIỆU MINH HỌA</div>
- </section>
+<section id="dashboard" class="panel hidden">
+ <div class="dashhead">
+  <h1 class="title">🟢 Hệ thống tìm rương Xu - VHN</h1>
+  <button class="refresh" onclick="render()" aria-label="Làm mới">⟳</button>
+ </div>
+ <div class="statusline">
+  <span class="status-left"><i></i>···cb58–25/11/26–···449E</span>
+  <span class="status-time">⌛ Còn: <span id="systemTimer">00:59:59</span></span>
+ </div>
+ <div class="social">
+  <button class="btn btn-zalo" onclick="showInfo('Nhóm Zalo')">🔵 Nhóm Zalo</button>
+  <button class="btn btn-tele" onclick="showInfo('Nhóm Telegram')">✈️ Nhóm Telegram</button>
+ </div>
+ <div class="tabs">
+  <button class="btn tab active" onclick="changeTab(0,this)">Rương xu</button>
+  <button class="btn tab" onclick="changeTab(1,this)">Rương treo</button>
+  <button class="btn tab" onclick="changeTab(2,this)">Túi xu</button>
+  <button class="btn tab" onclick="changeTab(3,this)">Kênh Test</button>
+ </div>
+ <div id="items"></div>
+ <div class="footer">VHN • DEMO GIAO DIỆN • KHÔNG KẾT NỐI NGUỒN LIVE</div>
+</section>
 </main>
 <script>
-const initial=[
+const samples=[
  [['5487381','33/8','4.1',49],['5487314','100/25','4.0',49],['5487312','31/5','6.2',61],['5487309','20/5','4.0',46],['5487306','35/5','7.0',60],['5487302','50/10','5.0',0]],
  [['5487386','50/5','10.0',0],['5487348','21/8','2.6',0],['5487343','49/15','3.3',0],['5487340','20/2','10.0',0],['5487328','50/20','2.5',0],['5487323','20/7','2.9',0]],
  [['5487390','20/5','4.0',60],['5487388','35/7','5.0',45],['5487370','50/10','5.0',30]],
  [['5487395','100/25','4.0',75],['5487392','31/5','6.2',60],['5487389','20/5','4.0',45]]
 ];
-let data=initial.map(group=>group.map(x=>[...x]));
-let activeTab=0, systemSeconds=3599;
+let data=samples.map(g=>g.map(x=>[...x])),tab=0,systemSeconds=3599;
+function closeNotice(){document.getElementById('notice').classList.add('hidden')}
+function showInfo(s){alert(s+' — liên kết chưa được cấu hình trong bản demo.')}
 function activate(){
+ // Bản demo: chấp nhận nội dung nhập tại chỗ, không gửi key ra ngoài.
  document.getElementById('activation').classList.add('hidden');
  document.getElementById('dashboard').classList.remove('hidden');
  render();
 }
-function changeTab(n,el){
- activeTab=n;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
- el.classList.add('active');render();
-}
-function timeFmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function changeTab(n,el){tab=n;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');render()}
+function fmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
 function render(){
  const root=document.getElementById('items');root.innerHTML='';
- data[activeTab].forEach((v,i)=>{
-  const [id,box,ratio,secs]=v, expired=secs<=0;
+ data[tab].forEach((v,i)=>{
+  const [id,box,ratio,secs]=v,dead=secs<=0;
   const card=document.createElement('article');card.className='item';
-  const main=document.createElement('div');main.className='item-main';
-  main.innerHTML=`<div class="item-time">15:03:${String(58-i).padStart(2,'0')}</div><div class="item-date">25/11/26</div><a class="item-link" href="#" onclick="event.preventDefault();demoNotice('Link mẫu ${id}')">link${id}</a><div class="meta"><span class="tag">Box: ${box}</span><span class="tag ratio">Ratio: ${ratio}</span></div>`;
-  const clock=document.createElement('div');clock.className='clock'+(expired?' expired':'');
-  clock.innerHTML=`<strong>${expired?'00:00':timeFmt(secs)}</strong><small>${expired?'NỔ NGAY':'CÒN LẠI'}</small>`;
-  const open=document.createElement('button');open.className='btn btn-hot open';open.textContent='Mở Link';open.onclick=()=>demoNotice('Link mẫu link'+id+' — chưa kết nối nguồn live');
+  const main=document.createElement('div');
+  main.innerHTML=`<div class="itemtime">15:03:${String(58-i).padStart(2,'0')}</div><div class="date">25/11/26</div><a class="itemlink" href="#" onclick="event.preventDefault();showInfo('Link mẫu ${id}')">link${id}</a><div class="meta"><span class="tag">Box: ${box}</span><span class="tag ratio">Ratio: ${ratio}</span></div>`;
+  const clock=document.createElement('div');clock.className='clock'+(dead?' expired':'');clock.innerHTML=`<strong>${dead?'00:00':fmt(secs)}</strong><small>${dead?'NỔ NGAY':'CÒN LẠI'}</small>`;
+  const open=document.createElement('button');open.className='btn open';open.textContent='Mở Link';open.onclick=()=>showInfo('Link mẫu link'+id);
   card.append(main,clock,open);root.append(card);
  });
 }
-function demoNotice(name){alert(name+'\\nChức năng liên kết chưa được cấu hình trong bản demo.');}
 function copyDevice(){
- const value=document.getElementById('device').textContent;
- if(navigator.clipboard)navigator.clipboard.writeText(value).then(()=>alert('Đã sao chép ID thiết bị!')).catch(()=>alert(value));
- else alert(value);
+ const v=document.getElementById('device').textContent;
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(v).then(()=>alert('Đã sao chép ID thiết bị!')).catch(()=>alert(v));
+ else{const t=document.createElement('textarea');t.value=v;document.body.append(t);t.select();document.execCommand('copy');t.remove();alert('Đã sao chép ID thiết bị!')}
 }
 setInterval(()=>{
  if(systemSeconds>0)systemSeconds--;
- const s=document.getElementById('systemTimer');
- if(s)s.textContent='00:'+timeFmt(systemSeconds);
- data.forEach(g=>g.forEach(v=>{if(v[3]>0)v[3]--;}));
+ document.getElementById('systemTimer').textContent='00:'+fmt(systemSeconds);
+ data.forEach(g=>g.forEach(v=>{if(v[3]>0)v[3]--}));
  if(!document.getElementById('dashboard').classList.contains('hidden'))render();
 },1000);
 </script>
